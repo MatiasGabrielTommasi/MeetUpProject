@@ -15,12 +15,27 @@ namespace MeetUp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            CargarPerfiles();
+            if (Session["objUser"] == null)
+                Response.Redirect("~/Login.aspx");
+
+            if (!IsPostBack)
+            {
+                Inicializar();
+                ValidarAcceso();
+            }
+        }
+
+        private void Inicializar()
+        {
+            CargarGrillaPerfiles();
             CargarGrillaTipoComponente();
             CargarComboTipoComponente();
             CargarGrillaTipoDocumento();
-            CargarTreeViewComponentes(new Perfil(2, string.Empty));
             CargarTreeViewComponentes();
+        }
+        private void ValidarAcceso()
+        {
+
         }
         #region Common
         private void Mensaje(string strMessage, string strTitle, AlertIcon.Icon Icon, CssClasses.CssClass Class)
@@ -30,7 +45,7 @@ namespace MeetUp
         }
         #endregion
         #region Perfiles
-        private void ClearFieldsProfile()
+        private void LimpiarCamposPerfil()
         {
             try
             {
@@ -39,14 +54,15 @@ namespace MeetUp
                 txtPerfil.Text = _empty;
                 btnGuardarPerfil.Visible = true;
                 HFintIdPerfil.Value = _cero;
-                //upProfileFields.Update();
+                tvComponentesPerfil.Nodes.Clear();
+                upTvComponentesPerfil.Update();
             }
             catch (Exception ex)
             {
                 throw;
             }
         }
-        private void CargarPerfiles()
+        private void CargarGrillaPerfiles()
         {
             try
             {
@@ -85,7 +101,7 @@ namespace MeetUp
                     parent.ShowCheckBox = true;
                     parent.Value = new JavaScriptSerializer().Serialize(parentComponent);
                     parent.Text = string.Format("<i class=\"now-ui-icons  {0}\"></i> <span oncontextmenu=\"treeViewContextMenu(event, {2});\">{1}</span>", parentComponent.strIconoComponente, parentComponent.strComponente, parentComponent.intIdComponente);
-                    if (hijos.Count > 0)//tiene hijosS
+                    if (hijos.Count > 0)
                     {
                         parent.Text = string.Format("<i class=\"fa fa-caret-right\"></i> {0}", parent.Text);
                         foreach (Componente componente in hijos)
@@ -97,7 +113,7 @@ namespace MeetUp
                     tvComponentesPerfil.Nodes.Add(parent);
                 }
                 tvComponentesPerfil.CollapseAll();
-                uptvComponentesPerfil.Update();
+                upTvComponentesPerfil.Update();
             }
             catch (Exception ex)
             {
@@ -134,7 +150,15 @@ namespace MeetUp
         }
         protected void btnNuevoPerfil_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                LimpiarCamposPerfil();
+                CargarTreeViewComponentes(new Perfil(1, string.Empty));
+                pnlPerfil.Visible = true;
+            }
+            catch (Exception ex)
+            {
+            }
         }
         protected void btnGuardarPerfil_Click(object sender, EventArgs e)
         {
@@ -142,43 +166,58 @@ namespace MeetUp
             {
                 if (ValidarCamposPerfil())
                 {
-                    int r = 0;
-                    int intId = Convert.ToInt32(HFintIdProfile.Value);
-                    string strProfile = txtProfile.Text;
-                    ProfileIQ oProfile = new ProfileIQ(intId, strProfile);
+                    int r = 0; 
+                    int intId = Convert.ToInt32(HFintIdPerfil.Value);
+                    string strProfile = txtPerfil.Text;
+                    Perfil obj = new Perfil(intId, strProfile);
 
-                    TreeNodeCollection iTreeComponents = tvComponents.CheckedNodes;
+                    TreeNodeCollection iTreeComponents = tvComponentesPerfil.CheckedNodes;
                     foreach (TreeNode component in iTreeComponents)
                     {
-                        Component oComponent = new JavaScriptSerializer().Deserialize<Component>(component.Value);
-                        oProfile.iComponents.Add(oComponent);
+                        Componente oComponent = new JavaScriptSerializer().Deserialize<Componente>(component.Value);
+                        obj.iComponentes.Add(oComponent);
                     }
 
-                    AdminMaster oMaster = (AdminMaster)this.Master;
-                    ProfileIQC objN = new ProfileIQC();
-                    if (oProfile.intId == 0)
-                        r = objN.Guardar(oProfile);
+                    PerfilDA objDA = new PerfilDA();
+                    if (obj.intId == 0)
+                        r = objDA.Guardar(obj);
                     else
-                        r = objN.Actualizar(oProfile);
-
+                        r = objDA.Actualizar(obj);
+                    
                     if (r > 0)
                     {
-                        LoadGridProfile();
-                        string _js = "showPanel('pnlProfileFields', false);";
-                        Functions.ClearControls(new List<Control>() { txtProfile, HFintIdProfile });
-                        oMaster.ExecuteScript(_js, "jsPanel");
-                        oMaster.ShowMessage(Alerts.Alert.Profile, Icons.Icon.Check, CssClasses.CssClass.Success, "Success!", "Profile saved successfully.");
+                        pnlPerfil.Visible = false;
+                        CargarGrillaPerfiles();
+                        Funciones.LimpiarCampos(new List<Control>() { txtPerfil });
+                        Mensaje("Se registró el Perfil correctamente.", "Correcto!", AlertIcon.Icon.Check, CssClasses.CssClass.Success);
                     }
                     else
-                        oMaster.ShowMessage(Alerts.Alert.Profile, Icons.Icon.Ban, CssClasses.CssClass.Danger, "Impossible!", "It wasn´t possible to save the Profile.");
+                        Mensaje("No fue posible guardar el Perfil, intente nuevamente", "Problemas!", AlertIcon.Icon.ExclamationTriangle, CssClasses.CssClass.Warning);
 
                 }
             }
             catch (Exception ex)
             {
-                AdminMaster oMaster = (AdminMaster)this.Master;
-                oMaster.ShowMessage(Alerts.Alert.Profile, Icons.Icon.Ban, CssClasses.CssClass.Danger, "Error!", ex.Message);
+                Mensaje("Ocurrió un inconveniente al registrar el perfil", "Problemas!", AlertIcon.Icon.Ban, CssClasses.CssClass.Danger);
             }
+        }
+        private bool ValidarCamposPerfil()
+        {
+            bool r = true;
+            try
+            {
+                List<WebControl> iControl = new List<WebControl>() { txtPerfil };
+                string strMessage = string.Empty;
+                r = Funciones.ValidarCamposConRetorno(iControl, ref strMessage);
+                if (!r)
+                    Mensaje(strMessage, "Revise los campos", AlertIcon.Icon.Ban, CssClasses.CssClass.Warning);
+            }
+            catch (Exception ex)
+            {
+                r = false;
+                Mensaje("Error al validar los campos, intente nuevamente", "Inconvenientes", AlertIcon.Icon.Ban, CssClasses.CssClass.Warning);
+            }
+            return r;
         }
         protected void tvComponentesPerfil_SelectedNodeChanged(object sender, EventArgs e)
         {
@@ -228,11 +267,7 @@ namespace MeetUp
         {
             GridView _gv = (GridView)sender;
             _gv.PageIndex = e.NewPageIndex;
-            CargarPerfiles();
-        }
-        protected void gvPerfil_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-
+            CargarGrillaPerfiles();
         }
         protected void gvPerfil_RowCommand(object sender, GridViewCommandEventArgs e)
         {
@@ -246,6 +281,7 @@ namespace MeetUp
                     obj.intId = intId;
                     obj = objDA.Cargar(obj).FirstOrDefault();
                     CargarCamposPerfil(obj);
+                    pnlPerfil.Visible = true;
                     break;
             }
         }
@@ -253,7 +289,7 @@ namespace MeetUp
         {
             try
             {
-                ClearFieldsProfile();
+                LimpiarCamposPerfil();
 
                 txtPerfil.Text = obj.strDescrip;
                 HFintIdPerfil.Value = Convert.ToString(obj.intId);

@@ -56,7 +56,7 @@
                       <asp:UpdatePanel class="col-12 col-md-6" runat="server" ID="upGridPerfil" UpdateMode="Conditional">
                           <ContentTemplate>
                               <asp:GridView CssClass="table table-hover" ID="gvPerfil" runat="server" AllowPaging="true" AutoGenerateColumns="false" EmptyDataText="No Profile found." GridLines="None"
-                                   OnPageIndexChanging="gvPerfil_PageIndexChanging" OnRowDataBound="gvPerfil_RowDataBound" OnRowCommand="gvPerfil_RowCommand" PageSize="10" ShowHeader="false">
+                                   OnPageIndexChanging="gvPerfil_PageIndexChanging" OnRowCommand="gvPerfil_RowCommand" PageSize="10" ShowHeader="false">
                                   <Columns>
                                       <asp:BoundField HeaderText="Description" DataField="strDescrip" />
                                       <asp:TemplateField ItemStyle-Width="100">
@@ -71,12 +71,12 @@
                       </asp:UpdatePanel>
                       <asp:UpdatePanel class="col-12 col-md-6" runat="server" UpdateMode="Always" >
                           <ContentTemplate>
-                              <asp:Panel runat="server" ID="pnlPerfil">
+                              <asp:Panel runat="server" ID="pnlPerfil" Visible="false">
                                   <div class="form-group col-12"> 
                                       Nombre del Perfil
-                                      <asp:TextBox runat="server" ID="txtPerfil" CssClass="form-control" placeholder="Perfil" />
+                                      <asp:TextBox runat="server" ID="txtPerfil" data-name="Nombre del Perfil" CssClass="form-control" placeholder="Perfil" />
                                   </div>
-                                  <asp:UpdatePanel class="col-12" style="overflow-y:scroll;max-height:300px!important;" runat="server" ID="uptvComponentesPerfil" UpdateMode="Conditional">
+                                  <asp:UpdatePanel class="col-12" style="overflow-y:scroll;max-height:300px!important;" runat="server" ID="upTvComponentesPerfil" UpdateMode="Conditional">
                                       <ContentTemplate>
                                           <asp:TreeView ID="tvComponentesPerfil" OnSelectedNodeChanged="tvComponentesPerfil_SelectedNodeChanged" OnTreeNodeExpanded="tvComponentesPerfil_TreeNodeExpanded" OnTreeNodeCollapsed="tvComponentesPerfil_TreeNodeCollapsed" CssClass="tree-view-asp" runat="server"></asp:TreeView>
                                       </ContentTemplate>
@@ -306,7 +306,6 @@
                 var div = $("<div class='custom-control custom-switch custom-switch-off-danger custom-switch-on-success float-right'></div>")
                 $(item).wrap(div).addClass('custom-control-input');
                 var name = item.id.split('_')[1];
-                console.log(name == "chkMostrar");
                 if (name == "chkMostrar" || name == "chkHabilitar") {
                     $(item).after('<label class="custom-control-label text-dark" for="' + item.id + '">' + name.replace('chk', '') + '</label>');
                 } else {

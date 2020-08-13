@@ -7,38 +7,38 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MeetUp.Controles
+namespace MeetUp
 {
 
 
-    public partial class wucSideBar
+    public partial class Login
     {
 
         /// <summary>
-        /// liCerrarSesion control.
+        /// txtUsuario control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liCerrarSesion;
+        protected global::System.Web.UI.WebControls.TextBox txtUsuario;
 
         /// <summary>
-        /// btnCerrarSesión control.
+        /// txtContrasenia control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnCerrarSesión;
+        protected global::System.Web.UI.WebControls.TextBox txtContrasenia;
 
         /// <summary>
-        /// litMenuVertical control.
+        /// btnLogin control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal litMenuVertical;
+        protected global::System.Web.UI.WebControls.LinkButton btnLogin;
     }
 }

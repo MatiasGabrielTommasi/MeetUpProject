@@ -29,6 +29,7 @@ namespace Datos
 					Perfil oPerfil = new Perfil();
 					oPerfil.intId = (objRow["id_perfil"] != DBNull.Value) ? Convert.ToInt32(objRow["id_perfil"].ToString()) : 0;
 					oPerfil.strDescrip = (objRow["perfil"] != DBNull.Value) ? objRow["perfil"].ToString() : string.Empty;
+					oPerfil.iComponentes = CargarComponentes(oPerfil.intId);
 					iPerfil.Add(oPerfil);
 				}
 			}
@@ -63,7 +64,15 @@ namespace Datos
 				foreach (DataRow objRow in dt.Rows)
 				{
 					r = Convert.ToInt32(objRow["@identity"]);
+					obj.intId = r;
 				}
+                if (r > 0)
+                {
+                    foreach (Componente componente in obj.iComponentes)
+                    {
+						GuardarComponente(componente, obj.intId);
+                    }
+                }
 			}
 			catch(Exception ex)
 			{
@@ -98,6 +107,14 @@ namespace Datos
 				{
 					r = Convert.ToInt32(objRow["@rowcount"]);
 				}
+                if (r > 0)
+                {
+					EliminarComponentes(obj.intId);
+                    foreach (Componente componente in obj.iComponentes)
+                    {
+						GuardarComponente(componente, obj.intId);
+                    }
+                }
 			}
 			catch(Exception ex)
 			{

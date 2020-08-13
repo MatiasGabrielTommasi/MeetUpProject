@@ -7,19 +7,20 @@
     </div>
     <div class="sidebar-wrapper" id="sidebar-wrapper">
     <ul class="nav">
-        <li class="active ">
+        <li class="active" runat="server" ID="liCerrarSesion" Visible="false">
+            <asp:LinkButton runat="server" ID="btnCerrarSesión" OnClick="btnCerrarSesión_Click" >
+                <i class="now-ui-icons objects_key-25"></i>
+                <p>Cerrar Sesión</p>
+            </asp:LinkButton>
+        </li>
+        <asp:Literal ID="litMenuVertical" runat="server" />
+<%--        <li class="active ">
             <a href="./icons.html">
                 <i class="now-ui-icons objects_key-25"></i>
                 <p>Iniciar Sesión</p>
             </a>
-        </li>
-        <li class="active ">
-            <a href="./icons.html">
-                <i class="now-ui-icons objects_key-25"></i>
-                <p>Cerrar Sesión</p>
-            </a>
-        </li>
-        <li>
+        </li>--%>
+        <%--<li>
             <a href="./icons.html">
                 <i class="now-ui-icons ui-1_calendar-60"></i>
                 <p>Eventos</p>
@@ -42,7 +43,7 @@
                 <i class="now-ui-icons business_badge"></i>
                 <p>Usuarios</p>
             </a>
-        </li>
+        </li>--%>
 <%--        <li>
             <a href="./icons.html">
                 <i class="now-ui-icons ui-2_settings-90"></i>
