@@ -1,0 +1,12 @@
+D:\Proyectos\MeetUp\Entidades\obj\Debug\Entidades.csprojAssemblyReference.cache
+D:\Proyectos\MeetUp\Entidades\obj\Debug\Entidades.csproj.CoreCompileInputs.cache
+D:\Proyectos\MeetUp\Entidades\bin\Debug\Entidades.dll
+D:\Proyectos\MeetUp\Entidades\bin\Debug\Entidades.pdb
+D:\Proyectos\MeetUp\Entidades\obj\Debug\Entidades.dll
+D:\Proyectos\MeetUp\Entidades\obj\Debug\Entidades.pdb
+C:\MeetUpSantander\WebProject\Entidades\bin\Debug\Entidades.dll
+C:\MeetUpSantander\WebProject\Entidades\bin\Debug\Entidades.pdb
+C:\MeetUpSantander\WebProject\Entidades\obj\Debug\Entidades.csprojAssemblyReference.cache
+C:\MeetUpSantander\WebProject\Entidades\obj\Debug\Entidades.csproj.CoreCompileInputs.cache
+C:\MeetUpSantander\WebProject\Entidades\obj\Debug\Entidades.dll
+C:\MeetUpSantander\WebProject\Entidades\obj\Debug\Entidades.pdb

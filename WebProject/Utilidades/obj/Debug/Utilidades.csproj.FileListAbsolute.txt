@@ -1,0 +1,8 @@
+C:\MeetUpSantander\WebProject\Utilidades\obj\Debug\Utilidades.csprojAssemblyReference.cache
+C:\MeetUpSantander\WebProject\Utilidades\obj\Debug\Utilidades.csproj.CoreCompileInputs.cache
+C:\MeetUpSantander\WebProject\Utilidades\bin\Debug\Utilidades.dll
+C:\MeetUpSantander\WebProject\Utilidades\bin\Debug\Utilidades.pdb
+C:\MeetUpSantander\WebProject\Utilidades\obj\Debug\Utilidades.dll
+C:\MeetUpSantander\WebProject\Utilidades\obj\Debug\Utilidades.pdb
+C:\MeetUpSantander\WebProject\Utilidades\obj\Debug\Utilidades.csproj.CopyComplete
+C:\MeetUpSantander\WebProject\Utilidades\bin\Debug\QRCoder.dll
