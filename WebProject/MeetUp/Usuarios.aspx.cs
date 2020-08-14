@@ -28,7 +28,13 @@ namespace MeetUp
 
         private void ValidarAcceso()
         {
-            throw new NotImplementedException();
+            Usuario objUser = (Usuario)Session["objUser"];
+            List<Componente> iComponentes = objUser.iPerfiles.SelectMany(p => p.iComponentes).Distinct().ToList();
+            List<WebControl> iControls = new List<WebControl>() { pnlUsuarios };
+            foreach (WebControl control in iControls)
+            {
+                control.Visible = (iComponentes.Where(c => c.strDetalleComponente == control.ID).ToList().Count > 0);
+            }
         }
 
         private void Inicializar()
@@ -56,15 +62,9 @@ namespace MeetUp
         {
             try
             {
-                string _empty = string.Empty;
-                string _cero = "0";
-                txtUsuario.Text = _empty;
-                txtNombre.Text = _empty;
-                txtApellido.Text = _empty;
-                txtCorreo.Text = _empty;
-                txtDocumento.Text = _empty;
+                List<Control> iControl = new List<Control>() { txtUsuario, txtNombre, txtApellido, txtCorreo, txtDocumento, HFintIdUsuario };
+                Funciones.LimpiarCampos(iControl);
                 btnGuardarUsuario.Visible = true;
-                HFintIdUsuario.Value = _cero;
                 tvPerfiles.Nodes.Clear();
                 upTvPerfiles.Update();
             }
@@ -246,10 +246,6 @@ namespace MeetUp
                 btnGuardarUsuario.Visible = true;
                 HFintIdUsuario.Value = Convert.ToString(obj.intIdUsuario);
                 CargarTreeViewPerfil(obj);
-
-                string _js = "showPanel('pnlProfileFields', true);";
-                Main oMaster = (Main)this.Master;
-                oMaster.EjecutarScript(_js, "jsShow");
             }
             catch (Exception ex)
             {

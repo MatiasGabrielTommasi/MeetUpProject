@@ -18,7 +18,7 @@ namespace Entidades
 			string _vacio = string.Empty;
 			this.intIdReserva = _cero;
 			this.oEvento = new Evento();
-			this.datFechaReserva = new DateTime();
+			this.datFechaReserva = DateTime.Now;
 			this.oUsuario = new Usuario();
 			this.strQr = _vacio;
 			this.decConsumo = Convert.ToDecimal(_cero);

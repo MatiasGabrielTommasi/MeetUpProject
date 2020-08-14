@@ -71,6 +71,81 @@
     <Content Include="assets\css\meetup-fix.css" />
     <Content Include="assets\css\now-ui-dashboard.css" />
     <Content Include="assets\css\now-ui-dashboard.min.css" />
+    <Content Include="assets\fullcalendar\css\fullcalendar.min.css" />
+    <Content Include="assets\fullcalendar\css\styles.css" />
+    <Content Include="assets\fullcalendar\js\fullcalendar.min.js" />
+    <Content Include="assets\fullcalendar\js\locale\af.js" />
+    <Content Include="assets\fullcalendar\js\locale\ar-dz.js" />
+    <Content Include="assets\fullcalendar\js\locale\ar-kw.js" />
+    <Content Include="assets\fullcalendar\js\locale\ar-ly.js" />
+    <Content Include="assets\fullcalendar\js\locale\ar-ma.js" />
+    <Content Include="assets\fullcalendar\js\locale\ar-sa.js" />
+    <Content Include="assets\fullcalendar\js\locale\ar-tn.js" />
+    <Content Include="assets\fullcalendar\js\locale\ar.js" />
+    <Content Include="assets\fullcalendar\js\locale\bg.js" />
+    <Content Include="assets\fullcalendar\js\locale\bs.js" />
+    <Content Include="assets\fullcalendar\js\locale\ca.js" />
+    <Content Include="assets\fullcalendar\js\locale\cs.js" />
+    <Content Include="assets\fullcalendar\js\locale\da.js" />
+    <Content Include="assets\fullcalendar\js\locale\de-at.js" />
+    <Content Include="assets\fullcalendar\js\locale\de-ch.js" />
+    <Content Include="assets\fullcalendar\js\locale\de.js" />
+    <Content Include="assets\fullcalendar\js\locale\el.js" />
+    <Content Include="assets\fullcalendar\js\locale\en-au.js" />
+    <Content Include="assets\fullcalendar\js\locale\en-ca.js" />
+    <Content Include="assets\fullcalendar\js\locale\en-gb.js" />
+    <Content Include="assets\fullcalendar\js\locale\en-ie.js" />
+    <Content Include="assets\fullcalendar\js\locale\en-nz.js" />
+    <Content Include="assets\fullcalendar\js\locale\es-do.js" />
+    <Content Include="assets\fullcalendar\js\locale\es-us.js" />
+    <Content Include="assets\fullcalendar\js\locale\es.js" />
+    <Content Include="assets\fullcalendar\js\locale\et.js" />
+    <Content Include="assets\fullcalendar\js\locale\eu.js" />
+    <Content Include="assets\fullcalendar\js\locale\fa.js" />
+    <Content Include="assets\fullcalendar\js\locale\fi.js" />
+    <Content Include="assets\fullcalendar\js\locale\fr-ca.js" />
+    <Content Include="assets\fullcalendar\js\locale\fr-ch.js" />
+    <Content Include="assets\fullcalendar\js\locale\fr.js" />
+    <Content Include="assets\fullcalendar\js\locale\gl.js" />
+    <Content Include="assets\fullcalendar\js\locale\he.js" />
+    <Content Include="assets\fullcalendar\js\locale\hi.js" />
+    <Content Include="assets\fullcalendar\js\locale\hr.js" />
+    <Content Include="assets\fullcalendar\js\locale\hu.js" />
+    <Content Include="assets\fullcalendar\js\locale\id.js" />
+    <Content Include="assets\fullcalendar\js\locale\is.js" />
+    <Content Include="assets\fullcalendar\js\locale\it.js" />
+    <Content Include="assets\fullcalendar\js\locale\ja.js" />
+    <Content Include="assets\fullcalendar\js\locale\ka.js" />
+    <Content Include="assets\fullcalendar\js\locale\kk.js" />
+    <Content Include="assets\fullcalendar\js\locale\ko.js" />
+    <Content Include="assets\fullcalendar\js\locale\lb.js" />
+    <Content Include="assets\fullcalendar\js\locale\lt.js" />
+    <Content Include="assets\fullcalendar\js\locale\lv.js" />
+    <Content Include="assets\fullcalendar\js\locale\mk.js" />
+    <Content Include="assets\fullcalendar\js\locale\ms-my.js" />
+    <Content Include="assets\fullcalendar\js\locale\ms.js" />
+    <Content Include="assets\fullcalendar\js\locale\nb.js" />
+    <Content Include="assets\fullcalendar\js\locale\nl-be.js" />
+    <Content Include="assets\fullcalendar\js\locale\nl.js" />
+    <Content Include="assets\fullcalendar\js\locale\nn.js" />
+    <Content Include="assets\fullcalendar\js\locale\pl.js" />
+    <Content Include="assets\fullcalendar\js\locale\pt-br.js" />
+    <Content Include="assets\fullcalendar\js\locale\pt.js" />
+    <Content Include="assets\fullcalendar\js\locale\ro.js" />
+    <Content Include="assets\fullcalendar\js\locale\ru.js" />
+    <Content Include="assets\fullcalendar\js\locale\sk.js" />
+    <Content Include="assets\fullcalendar\js\locale\sl.js" />
+    <Content Include="assets\fullcalendar\js\locale\sq.js" />
+    <Content Include="assets\fullcalendar\js\locale\sr-cyrl.js" />
+    <Content Include="assets\fullcalendar\js\locale\sr.js" />
+    <Content Include="assets\fullcalendar\js\locale\sv.js" />
+    <Content Include="assets\fullcalendar\js\locale\th.js" />
+    <Content Include="assets\fullcalendar\js\locale\tr.js" />
+    <Content Include="assets\fullcalendar\js\locale\uk.js" />
+    <Content Include="assets\fullcalendar\js\locale\vi.js" />
+    <Content Include="assets\fullcalendar\js\locale\zh-cn.js" />
+    <Content Include="assets\fullcalendar\js\locale\zh-tw.js" />
+    <Content Include="assets\fullcalendar\js\moment.min.js" />
     <Content Include="assets\img\apple-icon.png" />
     <Content Include="assets\img\bg5.jpg" />
     <Content Include="assets\img\default-avatar.png" />
@@ -89,9 +164,12 @@
     <Content Include="assets\js\plugins\perfect-scrollbar.jquery.min.js" />
     <Content Include="Controles\wucSideBar.ascx" />
     <Content Include="Default.aspx" />
+    <Content Include="Eventos.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Parametricas.aspx" />
     <Content Include="Registrarse.aspx" />
+    <Content Include="Reservas.aspx" />
+    <Content Include="Salas.aspx" />
     <Content Include="Usuarios.aspx" />
     <Content Include="Web.config" />
     <Content Include="_Model.aspx" />
@@ -110,6 +188,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Eventos.aspx.cs">
+      <DependentUpon>Eventos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Eventos.aspx.designer.cs">
+      <DependentUpon>Eventos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -139,6 +224,20 @@
     </Compile>
     <Compile Include="Registrarse.aspx.designer.cs">
       <DependentUpon>Registrarse.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reservas.aspx.cs">
+      <DependentUpon>Reservas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reservas.aspx.designer.cs">
+      <DependentUpon>Reservas.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Salas.aspx.cs">
+      <DependentUpon>Salas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Salas.aspx.designer.cs">
+      <DependentUpon>Salas.aspx</DependentUpon>
     </Compile>
     <Compile Include="Usuarios.aspx.cs">
       <DependentUpon>Usuarios.aspx</DependentUpon>

@@ -33,12 +33,12 @@
         </div>
       </nav>
       <!-- End Navbar -->
-      <div class="panel-header panel-header-lg"></div>
+      <div class="panel-header panel-header-sm"></div>
       <div class="content">
         <div class="row">
 
             <!-- PERFILES -->
-          <div class="col-12">
+          <asp:Panel runat="server" ID="pnlPerfiles" class="col-12">
             <div class="card card-chart">
               <div class="card-header">
                 <h5 class="card-category">Configuraciones</h5>
@@ -90,11 +90,11 @@
                   </div>
             </div>
           </div>
-        </div>
+        </asp:Panel>
             <!-- PERFILES FIN -->
             
             <!-- COMPONENTES -->
-          <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+          <asp:Panel runat="server" ID="pnlComponentes" class="col-12 col-md-6 col-lg-6 col-xl-4">
             <div class="card card-chart">
               <div class="card-header">
                 <h5 class="card-category">Configuraciones</h5>
@@ -156,11 +156,11 @@
                   </div>
             </div>
           </div>
-        </div>
+        </asp:Panel>
             <!-- COMPONENTES FIN -->
             
             <!-- TIPO COMPONENTE -->
-          <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+          <asp:Panel runat="server" ID="pnlTiposComponentes" class="col-12 col-md-6 col-lg-6 col-xl-4">
             <div class="card card-chart">
               <div class="card-header">
                 <h5 class="card-category">Configuraciones</h5>
@@ -209,11 +209,11 @@
                   </div>
             </div>
           </div>
-        </div>
+        </asp:Panel>
             <!-- TIPO COMPONENTE FIN -->
             
             <!-- TIPO DOCUMENTO -->
-          <div class="col-12 col-md-6 col-lg-6 col-xl-4">
+          <asp:Panel runat="server" ID="pnlTiposDocumentos" class="col-12 col-md-6 col-lg-6 col-xl-4">
             <div class="card card-chart">
               <div class="card-header">
                 <h5 class="card-category">Configuraciones</h5>
@@ -262,7 +262,7 @@
                   </div>
             </div>
           </div>
-        </div>
+        </asp:Panel>
             <!-- TIPO DOCUMENTO FIN -->
             
       </div>

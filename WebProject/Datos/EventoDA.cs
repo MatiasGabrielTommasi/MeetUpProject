@@ -1,4 +1,5 @@
 using Entidades;
+using RestSharp;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Data.SqlClient;
 namespace Datos
 {
 	public class EventoDA {
-		public List<Evento> Cargar(Evento obj, DateTime? datFechaDesde = null, DateTime? datFechaHasta = null)
+		public List<Evento> Cargar(Evento obj)
 		{
 			string strSQL = "Evento_get";
 			SqlConnection conn = DatabaseConnection.oConn;
@@ -21,8 +22,6 @@ namespace Datos
 				cmd.Parameters.AddWithValue("@id_evento", obj.intIdEvento);
 				cmd.Parameters.AddWithValue("@id_sala", obj.oSala.intIdSala);
 				cmd.Parameters.AddWithValue("@id_usuario", obj.oUsuarioAnfitrion.intIdUsuario);
-                if (datFechaDesde != null) { cmd.Parameters.AddWithValue("@fecha_desde", datFechaDesde); }
-                if (datFechaHasta != null) { cmd.Parameters.AddWithValue("@fecha_hasta", datFechaHasta); }
 				conn.Open();
 				SqlDataAdapter da = new SqlDataAdapter(cmd);
 				da.Fill(dt);
@@ -34,7 +33,8 @@ namespace Datos
 					oEvento.intIdEvento = (objRow["id_evento"] != DBNull.Value) ? Convert.ToInt32(objRow["id_evento"].ToString()) : 0;
 					oEvento.strEvento = (objRow["evento"] != DBNull.Value) ? objRow["evento"].ToString() : string.Empty;
 					oEvento.datFechaEvento = (objRow["fecha_evento"] != DBNull.Value) ? Convert.ToDateTime(objRow["fecha_evento"].ToString()) : new DateTime();
-					oEvento.intTodalAsistentes = (objRow["todal_asistentes"] != DBNull.Value) ? Convert.ToInt32(objRow["todal_asistentes"].ToString()) : 0;
+					oEvento.intTotalAsistentes = (objRow["todal_asistentes"] != DBNull.Value) ? Convert.ToInt32(objRow["todal_asistentes"].ToString()) : 0;
+					oEvento.intTotalReservas = (objRow["total_reservas"] != DBNull.Value) ? Convert.ToInt32(objRow["total_reservas"].ToString()) : 0;
 
 					oEvento.oSala.intIdSala = (objRow["id_sala"] != DBNull.Value) ? Convert.ToInt32(objRow["id_sala"].ToString()) : 0;
 					oEvento.oSala.strSala = (objRow["sala"] != DBNull.Value) ? objRow["sala"].ToString() : string.Empty;
@@ -60,7 +60,6 @@ namespace Datos
 			}
 			return iEvento;
 		}
-
 		public int Guardar(Evento obj)
 		{
 			string strSQL = "Evento_ins";
@@ -75,7 +74,7 @@ namespace Datos
 				cmd.Parameters.AddWithValue("@id_usuario", obj.oUsuarioAnfitrion.intIdUsuario);
 				cmd.Parameters.AddWithValue("@evento", obj.strEvento);
 				cmd.Parameters.AddWithValue("@fecha_evento", obj.datFechaEvento);
-				cmd.Parameters.AddWithValue("@todal_asistentes", obj.intTodalAsistentes);
+				cmd.Parameters.AddWithValue("@todal_asistentes", obj.intTotalAsistentes);
 				conn.Open();
 				SqlDataAdapter da = new SqlDataAdapter(cmd);
 				da.Fill(dt);
@@ -97,7 +96,6 @@ namespace Datos
 			}
 			return r;
 		}
-
 		public int Actualizar(Evento obj)
 		{
 			string strSQL = "Evento_upt";
@@ -113,7 +111,7 @@ namespace Datos
 				cmd.Parameters.AddWithValue("@id_usuario", obj.oUsuarioAnfitrion.intIdUsuario);
 				cmd.Parameters.AddWithValue("@evento", obj.strEvento);
 				cmd.Parameters.AddWithValue("@fecha_evento", obj.datFechaEvento);
-				cmd.Parameters.AddWithValue("@todal_asistentes", obj.intTodalAsistentes);
+				cmd.Parameters.AddWithValue("@todal_asistentes", obj.intTotalAsistentes);
 				conn.Open();
 				SqlDataAdapter da = new SqlDataAdapter(cmd);
 				da.Fill(dt);
@@ -135,7 +133,6 @@ namespace Datos
 			}
 			return r;
 		}
-
 		public int Eliminar(Evento obj)
 		{
 			string strSQL = "Evento_del";
@@ -167,6 +164,14 @@ namespace Datos
 				cmd.Dispose();
 			}
 			return r;
+		}
+		private void ObtenerTemperatura()
+        {
+			var client = new RestClient("https://weatherbit-v1-mashape.p.rapidapi.com/forecast/daily?lang=en&lat=-34.639115&lon=-58.404263");
+			var request = new RestRequest(Method.GET);
+			request.AddHeader("x-rapidapi-host", "weatherbit-v1-mashape.p.rapidapi.com");
+			request.AddHeader("x-rapidapi-key", "a88d29db4cmsh3207ea10e762531p1fe01ejsn3dfad5a29d09");
+			IRestResponse response = client.Execute(request);
 		}
 	}
 }

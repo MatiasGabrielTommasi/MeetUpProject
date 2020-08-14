@@ -60,7 +60,6 @@
             $(".span-checkbox").children('input').addClass('custom-control-input');
             $(".span-checkbox").children('label').addClass('custom-control-label');
         }
-        //nowuiDashboard.showNotification('top', 'center');
     </script>
     <asp:ContentPlaceHolder runat="server" ID="cphScript"></asp:ContentPlaceHolder>
 </body>

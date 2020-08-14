@@ -35,7 +35,13 @@ namespace MeetUp
         }
         private void ValidarAcceso()
         {
-
+            Usuario objUser = (Usuario)Session["objUser"];
+            List<Componente> iComponentes = objUser.iPerfiles.SelectMany(p => p.iComponentes).Distinct().ToList();
+            List<WebControl> iControls = new List<WebControl>() { pnlComponentes, pnlPerfiles, pnlTiposComponentes, pnlTiposDocumentos };
+            foreach (WebControl control in iControls)
+            {
+                control.Visible = (iComponentes.Where(c => c.strDetalleComponente == control.ID).ToList().Count > 0);
+            }
         }
         #region Common
         private void Mensaje(string strMessage, string strTitle, AlertIcon.Icon Icon, CssClasses.CssClass Class)
@@ -49,11 +55,9 @@ namespace MeetUp
         {
             try
             {
-                string _empty = string.Empty;
-                string _cero = "0";
-                txtPerfil.Text = _empty;
+                List<Control> iControl = new List<Control>() { txtPerfil, HFintIdPerfil };
+                Funciones.LimpiarCampos(iControl);
                 btnGuardarPerfil.Visible = true;
-                HFintIdPerfil.Value = _cero;
                 tvComponentesPerfil.Nodes.Clear();
                 upTvComponentesPerfil.Update();
             }

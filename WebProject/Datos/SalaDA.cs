@@ -31,6 +31,11 @@ namespace Datos
 					oSala.strSala = (objRow["sala"] != DBNull.Value) ? objRow["sala"].ToString() : string.Empty;
 					oSala.intCupo = (objRow["cupo"] != DBNull.Value) ? Convert.ToInt32(objRow["cupo"].ToString()) : 0;
 					oSala.strUbicacion = (objRow["ubicacion"] != DBNull.Value) ? objRow["ubicacion"].ToString() : string.Empty;
+
+					oSala.intEventosHoy = (objRow["eventos_hoy"] != DBNull.Value) ? Convert.ToInt32(objRow["eventos_hoy"].ToString()) : 0;
+					oSala.intEventosVencidos = (objRow["eventos_vencidos"] != DBNull.Value) ? Convert.ToInt32(objRow["eventos_vencidos"].ToString()) : 0;
+					oSala.intEventosVigentes = (objRow["eventos_vigentes"] != DBNull.Value) ? Convert.ToInt32(objRow["eventos_vigentes"].ToString()) : 0;
+
 					iSala.Add(oSala);
 				}
 			}

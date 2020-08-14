@@ -29,12 +29,12 @@
         </div>
       </nav>
       <!-- End Navbar -->
-      <div class="panel-header panel-header-lg"></div>
+      <div class="panel-header panel-header-sm"></div>
       <div class="content">
         <div class="row">
             
             <!-- USUARIOS -->
-          <div class="col-12">
+          <asp:Panel runat="server" ID="pnlUsuarios" class="col-12">
             <div class="card card-chart">
               <div class="card-header">
                 <h5 class="card-category">Configuraciones</h5>
@@ -114,7 +114,7 @@
                   </div>
             </div>
           </div>
-        </div>
+        </asp:Panel>
             <!-- USUARIOS FIN -->
             
       </div>

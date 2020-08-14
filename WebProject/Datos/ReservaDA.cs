@@ -39,7 +39,10 @@ namespace Datos
 					oReserva.oEvento.intIdEvento = (objRow["id_evento"] != DBNull.Value) ? Convert.ToInt32(objRow["id_evento"].ToString()) : 0;
 					oReserva.oEvento.strEvento = (objRow["evento"] != DBNull.Value) ? objRow["evento"].ToString() : string.Empty;
 					oReserva.oEvento.datFechaEvento = (objRow["fecha_evento"] != DBNull.Value) ? Convert.ToDateTime(objRow["fecha_evento"].ToString()) : new DateTime();
-					
+
+					oReserva.oEvento.oUsuarioAnfitrion.strApellido = (objRow["apellido_anfitrion"] != DBNull.Value) ? objRow["apellido_anfitrion"].ToString() : string.Empty;
+					oReserva.oEvento.oUsuarioAnfitrion.strNombre = (objRow["nombre_anfitrion"] != DBNull.Value) ? objRow["nombre_anfitrion"].ToString() : string.Empty;
+
 					oReserva.oEvento.oSala.intIdSala = (objRow["id_sala"] != DBNull.Value) ? Convert.ToInt32(objRow["id_sala"].ToString()) : 0;
 					oReserva.oEvento.oSala.strSala = (objRow["sala"] != DBNull.Value) ? objRow["sala"].ToString() : string.Empty;
 					oReserva.oEvento.oSala.strUbicacion = (objRow["ubicacion"] != DBNull.Value) ? objRow["ubicacion"].ToString() : string.Empty;

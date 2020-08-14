@@ -87,12 +87,12 @@ namespace MeetUp
         protected global::System.Web.UI.WebControls.TextBox txtDocumento;
 
         /// <summary>
-        /// btnGuardarUsuario control.
+        /// btnRegistrarse control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton btnGuardarUsuario;
+        protected global::System.Web.UI.WebControls.LinkButton btnRegistrarse;
     }
 }

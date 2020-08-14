@@ -137,7 +137,7 @@ namespace Utilidades
                 QRCodeGenerator _qrCode = new QRCodeGenerator();
                 QRCodeData _qrCodeData = _qrCode.CreateQrCode(strValor, QRCodeGenerator.ECCLevel.Q);
                 QRCode qrCode = new QRCode(_qrCodeData);
-                Bitmap qrCodeImage = qrCode.GetGraphic(30, Color.Goldenrod, Color.OrangeRed, true);
+                Bitmap qrCodeImage = qrCode.GetGraphic(30, Color.OrangeRed, Color.White, true);
 
                 using (MemoryStream stream = new MemoryStream())
                 {

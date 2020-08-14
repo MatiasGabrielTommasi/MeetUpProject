@@ -29,7 +29,7 @@
         </div>
       </nav>
       <!-- End Navbar -->
-      <div class="panel-header panel-header-lg"></div>
+      <div class="panel-header panel-header-sm"></div>
       <div class="content">
         <div class="row">
             
@@ -42,7 +42,7 @@
                   <div class="row">
                       <asp:UpdatePanel class="col-12" runat="server" UpdateMode="Always" >
                           <ContentTemplate>
-                              <asp:Panel runat="server" CssClass="row" ID="pnlUsuario" Visible="false">
+                              <asp:Panel runat="server" CssClass="row" ID="pnlUsuario">
                                   <div class="col-12 row"> 
                                       <div class="form-group col-12 col-md-4"> 
                                           Nombre
@@ -69,9 +69,9 @@
                                           <asp:TextBox runat="server" ID="txtDocumento" MaxLength="20" data-name="Nombre del Usuario" CssClass="form-control" placeholder="Usuario" />
                                       </div>
                                   </div>
-                                  <div class="col-12">
-                                      <asp:LinkButton runat="server" ID="btnGuardarUsuario" OnClick="btnGuardarUsuario_Click" CssClass="btn btn-round btn-outline-success float-right no-caret">
-                                        <i class="now-ui-icons design-2_ruler-pencil"></i> Guardar
+                                  <div class="col-12 text-center">
+                                      <asp:LinkButton runat="server" ID="btnRegistrarse" OnClick="btnRegistrarse_Click" CssClass="btn btn-round btn-outline-success no-caret">
+                                        <i class="now-ui-icons ui-1_check"></i> Registrarse
                                       </asp:LinkButton>
                                   </div>
                               </asp:Panel>

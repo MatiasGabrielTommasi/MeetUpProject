@@ -22,7 +22,7 @@ namespace MeetUpTest
         {
             Evento obj = new Evento();
             obj.datFechaEvento = DateTime.Now.AddDays(15);
-            obj.intTodalAsistentes = 15;
+            obj.intTotalAsistentes = 15;
             obj.oSala.intIdSala = 2;
             obj.oUsuarioAnfitrion.intIdUsuario = 2;
             obj.strEvento = "Festejamos los logros del año!";
@@ -36,7 +36,7 @@ namespace MeetUpTest
             Evento obj = new Evento();
             obj.intIdEvento = 1;
             obj.datFechaEvento = DateTime.Now.AddDays(30);
-            obj.intTodalAsistentes = 15;
+            obj.intTotalAsistentes = 15;
             obj.oSala.intIdSala = 2;
             obj.oUsuarioAnfitrion.intIdUsuario = 2;
             obj.strEvento = "SE CAMBIO LA FECHA!!!! Festejamos los logros del año!";

@@ -60,6 +60,15 @@ namespace MeetUp
         protected global::System.Web.UI.WebControls.HiddenField HFintIdTipoDocumento;
 
         /// <summary>
+        /// pnlPerfiles control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlPerfiles;
+
+        /// <summary>
         /// btnNuevoPerfil control.
         /// </summary>
         /// <remarks>
@@ -130,6 +139,15 @@ namespace MeetUp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnGuardarPerfil;
+
+        /// <summary>
+        /// pnlComponentes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlComponentes;
 
         /// <summary>
         /// btnNuevoComponente control.
@@ -267,6 +285,15 @@ namespace MeetUp
         protected global::System.Web.UI.WebControls.LinkButton btnContextDelete;
 
         /// <summary>
+        /// pnlTiposComponentes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlTiposComponentes;
+
+        /// <summary>
         /// btnNuevoTipoComponente control.
         /// </summary>
         /// <remarks>
@@ -319,6 +346,15 @@ namespace MeetUp
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvTipoComponente;
+
+        /// <summary>
+        /// pnlTiposDocumentos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlTiposDocumentos;
 
         /// <summary>
         /// btnNuevoTipoDocumento control.

@@ -12,7 +12,8 @@ namespace MeetUp
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            EjecutarScript("bindScripts();", "jsBindScripts");
+            if(IsPostBack)
+                EjecutarScript("bindScripts();", "jsBindScripts");
         }
 
         public void EjecutarScript(string _script, string _tipo)
