@@ -64,3 +64,5 @@ C:\MeetUpSantander\WebProject\MeetUp\bin\QRCoder.dll
 C:\MeetUpSantander\WebProject\MeetUp\bin\Datos.pdb
 C:\MeetUpSantander\WebProject\MeetUp\bin\Entidades.pdb
 C:\MeetUpSantander\WebProject\MeetUp\bin\Utilidades.pdb
+C:\MeetUpSantander\WebProject\MeetUp\bin\RestSharp.dll
+C:\MeetUpSantander\WebProject\MeetUp\bin\RestSharp.xml

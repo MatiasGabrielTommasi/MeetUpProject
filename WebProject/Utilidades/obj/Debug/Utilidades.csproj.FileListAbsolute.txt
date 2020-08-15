@@ -6,3 +6,7 @@ C:\MeetUpSantander\WebProject\Utilidades\obj\Debug\Utilidades.dll
 C:\MeetUpSantander\WebProject\Utilidades\obj\Debug\Utilidades.pdb
 C:\MeetUpSantander\WebProject\Utilidades\obj\Debug\Utilidades.csproj.CopyComplete
 C:\MeetUpSantander\WebProject\Utilidades\bin\Debug\QRCoder.dll
+C:\MeetUpSantander\WebProject\Utilidades\bin\Debug\Entidades.dll
+C:\MeetUpSantander\WebProject\Utilidades\bin\Debug\RestSharp.dll
+C:\MeetUpSantander\WebProject\Utilidades\bin\Debug\Entidades.pdb
+C:\MeetUpSantander\WebProject\Utilidades\bin\Debug\RestSharp.xml

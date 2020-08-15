@@ -29,11 +29,11 @@ namespace MeetUp
         private void ValidarAcceso()
         {
             Usuario objUser = (Usuario)Session["objUser"];
-            List<Componente> iComponentes = objUser.iPerfiles.SelectMany(p => p.iComponentes).Distinct().ToList();
+            List<Componente> iComponentes = objUser.Perfiles.SelectMany(p => p.Componentes).Distinct().ToList();
             List<WebControl> iControls = new List<WebControl>() { pnlUsuarios };
             foreach (WebControl control in iControls)
             {
-                control.Visible = (iComponentes.Where(c => c.strDetalleComponente == control.ID).ToList().Count > 0);
+                control.Visible = (iComponentes.Where(c => c.Detalle == control.ID).ToList().Count > 0);
             }
         }
 
@@ -102,12 +102,12 @@ namespace MeetUp
                 {
                     TreeNode nodo = new TreeNode();
 
-                    if (obj.iPerfiles.Where(p => p.intId == perfil.intId).ToList().Count > 0)
+                    if (obj.Perfiles.Where(p => p.Id == perfil.Id).ToList().Count > 0)
                         nodo.Checked = true;
 
                     nodo.ShowCheckBox = true;
                     nodo.Value = new JavaScriptSerializer().Serialize(perfil);
-                    nodo.Text = string.Format("<i class=\"now-ui-icons  location_bookmark\"></i> <span>{0}</span>", perfil.strDescrip);
+                    nodo.Text = string.Format("<i class=\"now-ui-icons  location_bookmark\"></i> <span>{0}</span>", perfil.Descrip);
 
                     tvPerfiles.Nodes.Add(nodo);
                 }
@@ -140,25 +140,25 @@ namespace MeetUp
                     int intId = Convert.ToInt32(HFintIdUsuario.Value);
                     string strProfile = txtUsuario.Text;
                     Usuario obj = new Usuario();
-                    obj.intIdUsuario = Convert.ToInt32(HFintIdUsuario.Value);
-                    obj.oTipoDocumento = new TipoDocumento(Convert.ToInt32(cboTipoDocumento.SelectedValue), Convert.ToString(cboTipoDocumento.SelectedItem));
-                    obj.strApellido = txtApellido.Text;
-                    obj.strCorreoUsuario = txtCorreo.Text;
-                    obj.strNombre = txtNombre.Text;
-                    obj.strNumeroDocumento = txtDocumento.Text;
-                    obj.strUsuario = txtUsuario.Text;
+                    obj.Id = Convert.ToInt32(HFintIdUsuario.Value);
+                    obj.TipoDoc = new TipoDocumento(Convert.ToInt32(cboTipoDocumento.SelectedValue), Convert.ToString(cboTipoDocumento.SelectedItem));
+                    obj.Apellido = txtApellido.Text;
+                    obj.Correo = txtCorreo.Text;
+                    obj.Nombre = txtNombre.Text;
+                    obj.NumeroDoc = txtDocumento.Text;
+                    obj.Username = txtUsuario.Text;
 
                     TreeNodeCollection iTreePerfiles = tvPerfiles.CheckedNodes;
                     foreach (TreeNode nodo in iTreePerfiles)
                     {
                         Perfil objPerfil = new JavaScriptSerializer().Deserialize<Perfil>(nodo.Value);
-                        obj.iPerfiles.Add(objPerfil);
+                        obj.Perfiles.Add(objPerfil);
                     }
 
                     UsuarioDA objDA = new UsuarioDA();
-                    if (obj.intIdUsuario == 0)
+                    if (obj.Id == 0)
                     {
-                        obj.strContrasenia = Funciones.Encrypt("123456");
+                        obj.Contrasenia = Funciones.Encrypt("123456");
                         r = objDA.Guardar(obj);
                     }
                     else
@@ -211,7 +211,7 @@ namespace MeetUp
             HFintIdUsuario.Value = Convert.ToString(intId);
             UsuarioDA objDA = new UsuarioDA();
             Usuario obj = new Usuario();
-            obj.intIdUsuario = intId;
+            obj.Id = intId;
             switch (e.CommandName)
             {
                 case "editItem":
@@ -220,7 +220,7 @@ namespace MeetUp
                     pnlUsuario.Visible = true;
                     break;
                 case "reestablecerContrasenia":
-                    obj.strContrasenia = Funciones.Encrypt("123456");
+                    obj.Contrasenia = Funciones.Encrypt("123456");
                     int r = objDA.ReestablecerContrasenia(obj);
                     if (r > 0)
                     {
@@ -238,13 +238,13 @@ namespace MeetUp
             {
                 LimpiarCamposUsuario();
 
-                txtUsuario.Text = obj.strUsuario;
-                txtNombre.Text = obj.strNombre;
-                txtApellido.Text = obj.strApellido;
-                txtCorreo.Text = obj.strCorreoUsuario;
-                txtDocumento.Text = obj.strNumeroDocumento;
+                txtUsuario.Text = obj.Username;
+                txtNombre.Text = obj.Nombre;
+                txtApellido.Text = obj.Apellido;
+                txtCorreo.Text = obj.Correo;
+                txtDocumento.Text = obj.NumeroDoc;
                 btnGuardarUsuario.Visible = true;
-                HFintIdUsuario.Value = Convert.ToString(obj.intIdUsuario);
+                HFintIdUsuario.Value = Convert.ToString(obj.Id);
                 CargarTreeViewPerfil(obj);
             }
             catch (Exception ex)

@@ -21,9 +21,9 @@ namespace MeetUpTest
         public void Guardar()
         {
             Sala obj = new Sala();
-            obj.intCupo = 20;
-            obj.strSala = "Sala arcoiris";
-            obj.strUbicacion = "6to Pito of. 23";
+            obj.Cupo = 20;
+            obj.Nombre = "Sala arcoiris";
+            obj.Ubicacion = "6to Pito of. 23";
             SalaDA objDA = new SalaDA();
             int r = objDA.Guardar(obj);
             Assert.IsTrue(r > 0);
@@ -32,10 +32,10 @@ namespace MeetUpTest
         public void Actualizar()
         {
             Sala obj = new Sala();
-            obj.intIdSala = 1;
-            obj.intCupo = 20;
-            obj.strSala = "Sala arcoiris actualizada";
-            obj.strUbicacion = "6to Pito of. 124";
+            obj.Id = 1;
+            obj.Cupo = 20;
+            obj.Nombre = "Sala arcoiris actualizada";
+            obj.Ubicacion = "6to Pito of. 124";
             SalaDA objDA = new SalaDA();
             int r = objDA.Actualizar(obj);
             Assert.IsTrue(r > 0);
@@ -44,7 +44,7 @@ namespace MeetUpTest
         public void Eliminar()
         {
             Sala obj = new Sala();
-            obj.intIdSala = 1;
+            obj.Id = 1;
             SalaDA objDA = new SalaDA();
             int r = objDA.Eliminar(obj);
             Assert.IsTrue(r > 0);

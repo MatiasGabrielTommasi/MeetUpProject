@@ -22,10 +22,10 @@ namespace MeetUpTest
         {
             Evento obj = new Evento();
             obj.datFechaEvento = DateTime.Now.AddDays(15);
-            obj.intTotalAsistentes = 15;
-            obj.oSala.intIdSala = 2;
-            obj.oUsuarioAnfitrion.intIdUsuario = 2;
-            obj.strEvento = "Festejamos los logros del año!";
+            obj.TotalAsistentes = 15;
+            obj.Salon.Id = 2;
+            obj.UsuarioAnfitrion.Id = 2;
+            obj.Nombre = "Festejamos los logros del año!";
             EventoDA objDA = new EventoDA();
             int r = objDA.Guardar(obj);
             Assert.IsTrue(r > 0);
@@ -34,12 +34,12 @@ namespace MeetUpTest
         public void Actualizar()
         {
             Evento obj = new Evento();
-            obj.intIdEvento = 1;
+            obj.Id = 1;
             obj.datFechaEvento = DateTime.Now.AddDays(30);
-            obj.intTotalAsistentes = 15;
-            obj.oSala.intIdSala = 2;
-            obj.oUsuarioAnfitrion.intIdUsuario = 2;
-            obj.strEvento = "SE CAMBIO LA FECHA!!!! Festejamos los logros del año!";
+            obj.TotalAsistentes = 15;
+            obj.Salon.Id = 2;
+            obj.UsuarioAnfitrion.Id = 2;
+            obj.Nombre = "SE CAMBIO LA FECHA!!!! Festejamos los logros del año!";
             EventoDA objDA = new EventoDA();
             int r = objDA.Actualizar(obj);
             Assert.IsTrue(r > 0);
@@ -48,7 +48,7 @@ namespace MeetUpTest
         public void Eliminar()
         {
             Evento obj = new Evento();
-            obj.intIdEvento = 1;
+            obj.Id = 1;
             EventoDA objDA = new EventoDA();
             int r = objDA.Eliminar(obj);
             Assert.IsTrue(r > 0);

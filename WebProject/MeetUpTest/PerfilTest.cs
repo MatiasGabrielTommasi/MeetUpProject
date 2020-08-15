@@ -52,7 +52,7 @@ namespace MeetUpTest
         public void GuardarComponente()
 		{
 			Componente obj = new Componente();
-            obj.intIdComponente = 6;
+            obj.Id = 6;
 			PerfilDA objDA = new PerfilDA();
 			int r = objDA.GuardarComponente(obj, 2);
 			Assert.IsTrue(r > 0);

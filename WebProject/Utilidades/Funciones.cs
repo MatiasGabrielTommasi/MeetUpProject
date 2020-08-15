@@ -1,4 +1,6 @@
-﻿using QRCoder;
+﻿using Entidades;
+using QRCoder;
+using RestSharp;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -8,6 +10,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -162,6 +165,33 @@ namespace Utilidades
                 _control.CssClass = string.Format("{0} {1}", _class, _success);
             else
                 _control.CssClass = string.Format("{0} {1}", _class, _error);
+        }
+        public static List<ApiTemperature> ObtenerListadoTemperaturas()
+        {
+            List<ApiTemperature> r = new List<ApiTemperature>();
+            var client = new RestClient("https://weatherbit-v1-mashape.p.rapidapi.com/forecast/daily?lang=en&lat=-34.639115&lon=-58.404263");
+            var request = new RestRequest(Method.GET);
+            request.AddHeader("x-rapidapi-host", "weatherbit-v1-mashape.p.rapidapi.com");
+            request.AddHeader("x-rapidapi-key", "a88d29db4cmsh3207ea10e762531p1fe01ejsn3dfad5a29d09");
+            request.AddParameter(ClimaParameters.oLatParam);
+            request.AddParameter(ClimaParameters.oLonParam);
+            request.AddParameter(ClimaParameters.oLangParam);
+            IRestResponse response = client.Execute(request);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                dynamic res = new JavaScriptSerializer().Deserialize<object>(response.Content);
+                dynamic data = res["data"];
+                foreach (var pronostico in data)
+                {
+                    ApiTemperature obj = new ApiTemperature();
+                    obj.Fecha = Convert.ToDateTime(pronostico["datetime"]);
+                    obj.Temperatura = Convert.ToDecimal(pronostico["max_temp"]);
+
+                    r.Add(obj);
+                }
+                int a = 0;
+            }
+            return r;
         }
         public static string Encrypt(string clearText)
         {

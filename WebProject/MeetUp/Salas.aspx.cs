@@ -28,11 +28,11 @@ namespace MeetUp
         private void ValidarAcceso()
         {
             Usuario objUser = (Usuario)Session["objUser"];
-            List<Componente> iComponentes = objUser.iPerfiles.SelectMany(p => p.iComponentes).Distinct().ToList();
+            List<Componente> iComponentes = objUser.Perfiles.SelectMany(p => p.Componentes).Distinct().ToList();
             List<WebControl> iControls = new List<WebControl>() { pnlSalas };
             foreach (WebControl control in iControls)
             {
-                control.Visible = (iComponentes.Where(c => c.strDetalleComponente == control.ID).ToList().Count > 0);
+                control.Visible = (iComponentes.Where(c => c.Detalle == control.ID).ToList().Count > 0);
             }
         }
 
@@ -89,13 +89,13 @@ namespace MeetUp
                     int r = 0;
                     int intId = Convert.ToInt32(HFintIdSala.Value);
                     Sala obj = new Sala();
-                    obj.intIdSala = Convert.ToInt32(HFintIdSala.Value);
-                    obj.intCupo = Convert.ToInt32(txtCupo.Text);
-                    obj.strSala = txtNombre.Text;
-                    obj.strUbicacion = txtUbicacion.Text;
+                    obj.Id = Convert.ToInt32(HFintIdSala.Value);
+                    obj.Cupo = Convert.ToInt32(txtCupo.Text);
+                    obj.Nombre = txtNombre.Text;
+                    obj.Ubicacion = txtUbicacion.Text;
 
                     SalaDA objDA = new SalaDA();
-                    if (obj.intIdSala == 0)
+                    if (obj.Id == 0)
                         r = objDA.Guardar(obj);
                     else
                         r = objDA.Actualizar(obj);
@@ -147,7 +147,7 @@ namespace MeetUp
             HFintIdSala.Value = Convert.ToString(intId);
             SalaDA objDA = new SalaDA();
             Sala obj = new Sala();
-            obj.intIdSala = intId;
+            obj.Id = intId;
             switch (e.CommandName)
             {
                 case "editItem":
@@ -159,8 +159,8 @@ namespace MeetUp
                     EventoDA evtDA = new EventoDA();
                     obj = objDA.Cargar(obj).FirstOrDefault();
                     Evento evt = new Evento();
-                    evt.oSala = obj;
-                    obj.iEventos = evtDA.Cargar(evt);
+                    evt.Salon = obj;
+                    obj.Eventos = evtDA.Cargar(evt);
                     //cargargrillaeventos(o mejor el calendario)
                     CargarCalendario(obj);
                     break;
@@ -172,11 +172,11 @@ namespace MeetUp
             try
             {
                 string strEventosJson = string.Empty;
-                for (int i = 0; i < obj.iEventos.Count; i++)
+                for (int i = 0; i < obj.Eventos.Count; i++)
                 {
-                    string strEvento = obj.iEventos[i].ToSalasCalendarioString();
+                    string strEvento = obj.Eventos[i].ToSalasCalendarioString();
 
-                    if (i != obj.iEventos.Count - 1)
+                    if (i != obj.Eventos.Count - 1)
                         strEvento += ",";
 
                     strEventosJson += strEvento;
@@ -197,10 +197,10 @@ namespace MeetUp
             {
                 LimpiarCamposSala();
 
-                txtNombre.Text = obj.strSala;
-                txtCupo.Text = Convert.ToString(obj.intCupo);
-                txtUbicacion.Text = obj.strUbicacion;
-                HFintIdSala.Value = Convert.ToString(obj.intIdSala);
+                txtNombre.Text = obj.Nombre;
+                txtCupo.Text = Convert.ToString(obj.Cupo);
+                txtUbicacion.Text = obj.Ubicacion;
+                HFintIdSala.Value = Convert.ToString(obj.Id);
                 pnlSala.Visible = true;
             }
             catch (Exception ex)

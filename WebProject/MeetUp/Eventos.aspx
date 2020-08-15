@@ -90,23 +90,23 @@
                       <asp:UpdatePanel class="col-12" runat="server" ID="upGridEvento" UpdateMode="Conditional">
                           <ContentTemplate>
                               <asp:GridView CssClass="table table-hover" ID="gvEvento" runat="server" AllowPaging="true" AutoGenerateColumns="false" EmptyDataText="No Profile found." GridLines="None"
-                                   OnPageIndexChanging="gvEvento_PageIndexChanging" OnRowCommand="gvEvento_RowCommand" PageSize="10" ShowHeader="false">
+                                   OnPageIndexChanging="gvEvento_PageIndexChanging" OnDataBinding="gvEvento_DataBinding" OnRowCommand="gvEvento_RowCommand" PageSize="10" ShowHeader="false">
                                   <Columns>
-                                      <asp:BoundField HeaderText="Evento" DataField="strEvento" />
+                                      <asp:BoundField HeaderText="Evento" DataField="Nombre" />
                                       <asp:TemplateField>
                                           <ItemTemplate>    
-                                              <asp:Label runat="server" Text='<%# string.Format("{0:dd/MM/yyyy}", Eval("datFechaEvento")) %>' />
+                                              <asp:Label runat="server" ID="lblFecha" />
                                           </ItemTemplate>
                                       </asp:TemplateField>
                                       <asp:TemplateField>
                                           <ItemTemplate>    
-                                              <asp:Label runat="server" Text='<%# string.Format("{0} / {1}", Eval("intTotalReservas"), Eval("intTotalAsistentes")) %>' />
+                                              <asp:Label runat="server" Text='<%# string.Format("{0} / {1}", Eval("TotalReservas"), Eval("TotalAsistentes")) %>' />
                                           </ItemTemplate>
                                       </asp:TemplateField>
                                       <asp:TemplateField ItemStyle-Width="100">
                                           <ItemTemplate>    
-                                              <asp:LinkButton ID="btnEditar" CommandName="editItem" CommandArgument='<%# string.Format("{0}-{1}", Eval("intIdEvento"), Eval("oSala.intIdSala")) %>' runat="server" CssClass="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons design-2_ruler-pencil"></i></asp:LinkButton>
-                                              <asp:LinkButton ID="btnEliminar" CommandName="deleteItem" CommandArgument='<%# string.Format("{0}-{1}", Eval("intIdEvento"), Eval("oSala.intIdSala")) %>' runat="server" CssClass="btn btn-primary btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons ui-1_simple-remove"></i></asp:LinkButton>
+                                              <asp:LinkButton ID="btnEditar" CommandName="editItem" CommandArgument='<%# string.Format("{0}-{1}", Eval("Id"), Eval("Salon.Id")) %>' runat="server" CssClass="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons design-2_ruler-pencil"></i></asp:LinkButton>
+                                              <asp:LinkButton ID="btnEliminar" CommandName="deleteItem" CommandArgument='<%# string.Format("{0}-{1}", Eval("Id"), Eval("Salon.Id")) %>' runat="server" CssClass="btn btn-primary btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons ui-1_simple-remove"></i></asp:LinkButton>
                                           </ItemTemplate>
                                       </asp:TemplateField>
                                   </Columns>
@@ -134,34 +134,6 @@
             <!-- EVENTOS FIN -->
         </div>
       </div>
-      <footer class="footer">
-        <div class=" container-fluid ">
-          <nav>
-            <ul>
-              <li>
-                <a href="https://www.creative-tim.com">
-                  Creative Tim
-                </a>
-              </li>
-              <li>
-                <a href="http://presentation.creative-tim.com">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="http://blog.creative-tim.com">
-                  Blog
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div class="copyright" id="copyright">
-            &copy; <script>
-              document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
-            </script>, Designed by <a href="https://www.invisionapp.com" target="_blank">Invision</a>. Coded by <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
-          </div>
-        </div>
-      </footer>
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="cphScript" runat="server">

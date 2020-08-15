@@ -1,27 +1,33 @@
 using Entidades;
-using RestSharp;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
 namespace Datos
 {
-	public class EventoDA {
+	public class EventoDA
+	{
+		/// <summary>
+		/// Cargar los eventos, enviando un objeto del tipo Evento como parámetro donde se especifican los campos
+		/// Id, Salon.Id y UsuarioAnfitrion.Id. devuelve un listado de eventos, si todos se pasan en cero, carga la totalidad de eventos existentes,
+		/// si alguno se especifica se aplicará el filtro correspondiente al campo indicado
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
 		public List<Evento> Cargar(Evento obj)
 		{
 			string strSQL = "Evento_get";
-			SqlConnection conn = DatabaseConnection.oConn;
+			SqlConnection conn = DatabaseConnection.ConexionBase;
 			SqlCommand cmd = new SqlCommand(strSQL, conn);
 			DataTable dt = new DataTable();
 			List<Evento> iEvento = new List<Evento>();
 			try
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue("@id_evento", obj.intIdEvento);
-				cmd.Parameters.AddWithValue("@id_sala", obj.oSala.intIdSala);
-				cmd.Parameters.AddWithValue("@id_usuario", obj.oUsuarioAnfitrion.intIdUsuario);
+				cmd.Parameters.AddWithValue("@id_evento", obj.Id);
+				cmd.Parameters.AddWithValue("@id_sala", obj.Salon.Id);
+				cmd.Parameters.AddWithValue("@id_usuario", obj.UsuarioAnfitrion.Id);
 				conn.Open();
 				SqlDataAdapter da = new SqlDataAdapter(cmd);
 				da.Fill(dt);
@@ -30,21 +36,21 @@ namespace Datos
 				foreach (DataRow objRow in dt.Rows)
 				{
 					Evento oEvento = new Evento();
-					oEvento.intIdEvento = (objRow["id_evento"] != DBNull.Value) ? Convert.ToInt32(objRow["id_evento"].ToString()) : 0;
-					oEvento.strEvento = (objRow["evento"] != DBNull.Value) ? objRow["evento"].ToString() : string.Empty;
-					oEvento.datFechaEvento = (objRow["fecha_evento"] != DBNull.Value) ? Convert.ToDateTime(objRow["fecha_evento"].ToString()) : new DateTime();
-					oEvento.intTotalAsistentes = (objRow["todal_asistentes"] != DBNull.Value) ? Convert.ToInt32(objRow["todal_asistentes"].ToString()) : 0;
-					oEvento.intTotalReservas = (objRow["total_reservas"] != DBNull.Value) ? Convert.ToInt32(objRow["total_reservas"].ToString()) : 0;
+					oEvento.Id = (objRow["id_evento"] != DBNull.Value) ? Convert.ToInt32(objRow["id_evento"].ToString()) : 0;
+					oEvento.Nombre = (objRow["evento"] != DBNull.Value) ? objRow["evento"].ToString() : string.Empty;
+					oEvento.DiaSeleccionado.Fecha = (objRow["fecha_evento"] != DBNull.Value) ? Convert.ToDateTime(objRow["fecha_evento"].ToString()) : new DateTime();
+					oEvento.TotalAsistentes = (objRow["todal_asistentes"] != DBNull.Value) ? Convert.ToInt32(objRow["todal_asistentes"].ToString()) : 0;
+					oEvento.TotalReservas = (objRow["total_reservas"] != DBNull.Value) ? Convert.ToInt32(objRow["total_reservas"].ToString()) : 0;
 
-					oEvento.oSala.intIdSala = (objRow["id_sala"] != DBNull.Value) ? Convert.ToInt32(objRow["id_sala"].ToString()) : 0;
-					oEvento.oSala.strSala = (objRow["sala"] != DBNull.Value) ? objRow["sala"].ToString() : string.Empty;
-					oEvento.oSala.strUbicacion = (objRow["ubicacion"] != DBNull.Value) ? objRow["ubicacion"].ToString() : string.Empty;
+					oEvento.Salon.Id = (objRow["id_sala"] != DBNull.Value) ? Convert.ToInt32(objRow["id_sala"].ToString()) : 0;
+					oEvento.Salon.Nombre = (objRow["sala"] != DBNull.Value) ? objRow["sala"].ToString() : string.Empty;
+					oEvento.Salon.Ubicacion = (objRow["ubicacion"] != DBNull.Value) ? objRow["ubicacion"].ToString() : string.Empty;
 
-					oEvento.oUsuarioAnfitrion.intIdUsuario = (objRow["id_usuario"] != DBNull.Value) ? Convert.ToInt32(objRow["id_usuario"].ToString()) : 0;
-					oEvento.oUsuarioAnfitrion.strUsuario = (objRow["usuario"] != DBNull.Value) ? objRow["usuario"].ToString() : string.Empty;
-					oEvento.oUsuarioAnfitrion.strNombre = (objRow["nombre"] != DBNull.Value) ? objRow["nombre"].ToString() : string.Empty;
-					oEvento.oUsuarioAnfitrion.strApellido = (objRow["apellido"] != DBNull.Value) ? objRow["apellido"].ToString() : string.Empty;
-					oEvento.oUsuarioAnfitrion.strNumeroDocumento = (objRow["numero_documento"] != DBNull.Value) ? objRow["numero_documento"].ToString() : string.Empty;
+					oEvento.UsuarioAnfitrion.Id = (objRow["id_usuario"] != DBNull.Value) ? Convert.ToInt32(objRow["id_usuario"].ToString()) : 0;
+					oEvento.UsuarioAnfitrion.Username = (objRow["usuario"] != DBNull.Value) ? objRow["usuario"].ToString() : string.Empty;
+					oEvento.UsuarioAnfitrion.Nombre = (objRow["nombre"] != DBNull.Value) ? objRow["nombre"].ToString() : string.Empty;
+					oEvento.UsuarioAnfitrion.Apellido = (objRow["apellido"] != DBNull.Value) ? objRow["apellido"].ToString() : string.Empty;
+					oEvento.UsuarioAnfitrion.NumeroDoc = (objRow["numero_documento"] != DBNull.Value) ? objRow["numero_documento"].ToString() : string.Empty;
 
 					iEvento.Add(oEvento);
 				}
@@ -60,21 +66,27 @@ namespace Datos
 			}
 			return iEvento;
 		}
+		/// <summary>
+		/// Guardar, recibe el evento a guardar, y devuelve un numero entero con el id correspondiente a ese registro, 
+		/// si el entero es un cero quiere decir que no se pudo insertar el registro
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
 		public int Guardar(Evento obj)
 		{
 			string strSQL = "Evento_ins";
 			int r = 0;
-			SqlConnection conn = DatabaseConnection.oConn;
+			SqlConnection conn = DatabaseConnection.ConexionBase;
 			SqlCommand cmd = new SqlCommand(strSQL, conn);
 			DataTable dt = new DataTable();
 		try
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue("@id_sala", obj.oSala.intIdSala);
-				cmd.Parameters.AddWithValue("@id_usuario", obj.oUsuarioAnfitrion.intIdUsuario);
-				cmd.Parameters.AddWithValue("@evento", obj.strEvento);
-				cmd.Parameters.AddWithValue("@fecha_evento", obj.datFechaEvento);
-				cmd.Parameters.AddWithValue("@todal_asistentes", obj.intTotalAsistentes);
+				cmd.Parameters.AddWithValue("@id_sala", obj.Salon.Id);
+				cmd.Parameters.AddWithValue("@id_usuario", obj.UsuarioAnfitrion.Id);
+				cmd.Parameters.AddWithValue("@evento", obj.Nombre);
+				cmd.Parameters.AddWithValue("@fecha_evento", obj.DiaSeleccionado.Fecha);
+				cmd.Parameters.AddWithValue("@todal_asistentes", obj.TotalAsistentes);
 				conn.Open();
 				SqlDataAdapter da = new SqlDataAdapter(cmd);
 				da.Fill(dt);
@@ -96,22 +108,28 @@ namespace Datos
 			}
 			return r;
 		}
+		/// <summary>
+		/// Actualizar, recibe el componente a actualizar, y devuelve un numero entero con el numero de filas afectadas en la consulta, 
+		/// si el entero es un cero quiere decir que no se pudo actualizar el registro
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
 		public int Actualizar(Evento obj)
 		{
 			string strSQL = "Evento_upt";
 			int r = 0;
-			SqlConnection conn = DatabaseConnection.oConn;
+			SqlConnection conn = DatabaseConnection.ConexionBase;
 			SqlCommand cmd = new SqlCommand(strSQL, conn);
 			DataTable dt = new DataTable();
 			try
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue("@id_evento", obj.intIdEvento);
-				cmd.Parameters.AddWithValue("@id_sala", obj.oSala.intIdSala);
-				cmd.Parameters.AddWithValue("@id_usuario", obj.oUsuarioAnfitrion.intIdUsuario);
-				cmd.Parameters.AddWithValue("@evento", obj.strEvento);
-				cmd.Parameters.AddWithValue("@fecha_evento", obj.datFechaEvento);
-				cmd.Parameters.AddWithValue("@todal_asistentes", obj.intTotalAsistentes);
+				cmd.Parameters.AddWithValue("@id_evento", obj.Id);
+				cmd.Parameters.AddWithValue("@id_sala", obj.Salon.Id);
+				cmd.Parameters.AddWithValue("@id_usuario", obj.UsuarioAnfitrion.Id);
+				cmd.Parameters.AddWithValue("@evento", obj.Nombre);
+				cmd.Parameters.AddWithValue("@fecha_evento", obj.DiaSeleccionado.Fecha);
+				cmd.Parameters.AddWithValue("@todal_asistentes", obj.TotalAsistentes);
 				conn.Open();
 				SqlDataAdapter da = new SqlDataAdapter(cmd);
 				da.Fill(dt);
@@ -133,17 +151,23 @@ namespace Datos
 			}
 			return r;
 		}
+		/// <summary>
+		/// Eliminar, recibe el componente a eliminar, y devuelve un numero entero con el numero de filas afectadas en la consulta, 
+		/// si el entero es un cero quiere decir que no se pudo eliminar el registro
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
 		public int Eliminar(Evento obj)
 		{
 			string strSQL = "Evento_del";
 			int r = 0;
-			SqlConnection conn = DatabaseConnection.oConn;
+			SqlConnection conn = DatabaseConnection.ConexionBase;
 			SqlCommand cmd = new SqlCommand(strSQL, conn);
 			DataTable dt = new DataTable();
 			try
 			{
 				cmd.CommandType = CommandType.StoredProcedure;
-				cmd.Parameters.AddWithValue("@id_evento", obj.intIdEvento);
+				cmd.Parameters.AddWithValue("@id_evento", obj.Id);
 				conn.Open();
 				SqlDataAdapter da = new SqlDataAdapter(cmd);
 				da.Fill(dt);
@@ -164,14 +188,6 @@ namespace Datos
 				cmd.Dispose();
 			}
 			return r;
-		}
-		private void ObtenerTemperatura()
-        {
-			var client = new RestClient("https://weatherbit-v1-mashape.p.rapidapi.com/forecast/daily?lang=en&lat=-34.639115&lon=-58.404263");
-			var request = new RestRequest(Method.GET);
-			request.AddHeader("x-rapidapi-host", "weatherbit-v1-mashape.p.rapidapi.com");
-			request.AddHeader("x-rapidapi-key", "a88d29db4cmsh3207ea10e762531p1fe01ejsn3dfad5a29d09");
-			IRestResponse response = client.Execute(request);
 		}
 	}
 }

@@ -36,11 +36,11 @@ namespace MeetUp
         private void ValidarAcceso()
         {
             Usuario objUser = (Usuario)Session["objUser"];
-            List<Componente> iComponentes = objUser.iPerfiles.SelectMany(p => p.iComponentes).Distinct().ToList();
+            List<Componente> iComponentes = objUser.Perfiles.SelectMany(p => p.Componentes).Distinct().ToList();
             List<WebControl> iControls = new List<WebControl>() { pnlComponentes, pnlPerfiles, pnlTiposComponentes, pnlTiposDocumentos };
             foreach (WebControl control in iControls)
             {
-                control.Visible = (iComponentes.Where(c => c.strDetalleComponente == control.ID).ToList().Count > 0);
+                control.Visible = (iComponentes.Where(c => c.Detalle == control.ID).ToList().Count > 0);
             }
         }
         #region Common
@@ -91,20 +91,20 @@ namespace MeetUp
                 iComponentes = oComponenteDA.Cargar(new Componente());
                 ViewState["iComponentes"] = iComponentes;
 
-                List<Componente> parents = iComponentes.Where(p => p.intIdComponentePadre == 0).ToList();
+                List<Componente> parents = iComponentes.Where(p => p.IdPadre == 0).ToList();
 
                 foreach (Componente parentComponent in parents)
                 {
                     TreeNode parent = new TreeNode();
 
-                    List<Componente> hijos = iComponentes.Where(p => p.intIdComponentePadre == parentComponent.intIdComponente).ToList();
+                    List<Componente> hijos = iComponentes.Where(p => p.IdPadre == parentComponent.Id).ToList();
 
-                    if (oProfile.iComponentes.Where(c => c.intIdComponente == parentComponent.intIdComponente).ToList().Count > 0)
+                    if (oProfile.Componentes.Where(c => c.Id == parentComponent.Id).ToList().Count > 0)
                         parent.Checked = true;
 
                     parent.ShowCheckBox = true;
                     parent.Value = new JavaScriptSerializer().Serialize(parentComponent);
-                    parent.Text = string.Format("<i class=\"now-ui-icons  {0}\"></i> <span oncontextmenu=\"treeViewContextMenu(event, {2});\">{1}</span>", parentComponent.strIconoComponente, parentComponent.strComponente, parentComponent.intIdComponente);
+                    parent.Text = string.Format("<i class=\"now-ui-icons  {0}\"></i> <span oncontextmenu=\"treeViewContextMenu(event, {2});\">{1}</span>", parentComponent.Icono, parentComponent.Nombre, parentComponent.Id);
                     if (hijos.Count > 0)
                     {
                         parent.Text = string.Format("<i class=\"fa fa-caret-right\"></i> {0}", parent.Text);
@@ -128,15 +128,15 @@ namespace MeetUp
         {
             TreeNode result = new TreeNode();
 
-            if (oProfile.iComponentes.Where(c => c.intIdComponente == obj.intIdComponente).ToList().Count > 0)
+            if (oProfile.Componentes.Where(c => c.Id == obj.Id).ToList().Count > 0)
                 result.Checked = true;
 
             result.ShowCheckBox = true;
             result.Value = new JavaScriptSerializer().Serialize(obj);
-            result.Text = string.Format("<i class=\"now-ui-icons  {0}\"></i> <span oncontextmenu=\"treeViewContextMenu(event, {2});\">{1}</span>", obj.strIconoComponente, obj.strComponente, obj.intIdComponente);
+            result.Text = string.Format("<i class=\"now-ui-icons  {0}\"></i> <span oncontextmenu=\"treeViewContextMenu(event, {2});\">{1}</span>", obj.Icono, obj.Nombre, obj.Id);
             try
             {
-                List<Componente> iHijos = iComponentes.Where(p => p.intIdComponentePadre == obj.intIdComponente).ToList();
+                List<Componente> iHijos = iComponentes.Where(p => p.IdPadre == obj.Id).ToList();
                 if (iHijos.Count > 0)//tiene hijos
                 {
                     result.Text = string.Format("<i class=\"fa fa-caret-right\"></i> {0}", result.Text);
@@ -179,11 +179,11 @@ namespace MeetUp
                     foreach (TreeNode component in iTreeComponents)
                     {
                         Componente oComponent = new JavaScriptSerializer().Deserialize<Componente>(component.Value);
-                        obj.iComponentes.Add(oComponent);
+                        obj.Componentes.Add(oComponent);
                     }
 
                     PerfilDA objDA = new PerfilDA();
-                    if (obj.intId == 0)
+                    if (obj.Id == 0)
                         r = objDA.Guardar(obj);
                     else
                         r = objDA.Actualizar(obj);
@@ -282,7 +282,7 @@ namespace MeetUp
             {
                 case "editItem":
                     Perfil obj = new Perfil();
-                    obj.intId = intId;
+                    obj.Id = intId;
                     obj = objDA.Cargar(obj).FirstOrDefault();
                     CargarCamposPerfil(obj);
                     pnlPerfil.Visible = true;
@@ -295,8 +295,8 @@ namespace MeetUp
             {
                 LimpiarCamposPerfil();
 
-                txtPerfil.Text = obj.strDescrip;
-                HFintIdPerfil.Value = Convert.ToString(obj.intId);
+                txtPerfil.Text = obj.Descrip;
+                HFintIdPerfil.Value = Convert.ToString(obj.Id);
                 CargarTreeViewComponentes(obj);
 
                 string _js = "showPanel('pnlProfileFields', true);";
@@ -329,15 +329,15 @@ namespace MeetUp
         {
             try
             {
-                txtComponente.Text = obj.strComponente;
-                txtComponenteDetalle.Text = obj.strDetalleComponente;
-                txtComponenteIcono.Text = obj.strIconoComponente;
-                txtComponenteUrl.Text = obj.strUrlComponente;
-                chkHabilitar.Checked = obj.bitHabilitarComponente;
-                chkMostrar.Checked = obj.bitMostrarComponente;
-                cboTipoComponente.SelectedValue = Convert.ToString(obj.oTipoComponente.intId);
-                HFintIdComponente.Value = Convert.ToString(obj.intIdComponente);
-                HFintIdComponentePadre.Value = Convert.ToString(obj.intIdComponentePadre);
+                txtComponente.Text = obj.Nombre;
+                txtComponenteDetalle.Text = obj.Detalle;
+                txtComponenteIcono.Text = obj.Icono;
+                txtComponenteUrl.Text = obj.Url;
+                chkHabilitar.Checked = obj.Habilitado;
+                chkMostrar.Checked = obj.Mostrado;
+                cboTipoComponente.SelectedValue = Convert.ToString(obj.Tipo.Id);
+                HFintIdComponente.Value = Convert.ToString(obj.Id);
+                HFintIdComponentePadre.Value = Convert.ToString(obj.IdPadre);
                 pnlComponente.Visible = true;
             }
             catch (Exception ex)
@@ -391,19 +391,19 @@ namespace MeetUp
                 if (ValidarCamposComponente())
                 {
                     Componente obj = new Componente();
-                    obj.intIdComponente = Convert.ToInt32(HFintIdComponente.Value);
-                    obj.intIdComponentePadre = Convert.ToInt32(HFintIdComponentePadre.Value);
-                    obj.oTipoComponente = new TipoComponente(Convert.ToInt32(cboTipoComponente.SelectedValue), Convert.ToString(cboTipoComponente.SelectedItem));
-                    obj.strComponente = txtComponente.Text;
-                    obj.strDetalleComponente = txtComponenteDetalle.Text;
-                    obj.strIconoComponente = txtComponenteIcono.Text;
-                    obj.strUrlComponente = txtComponenteUrl.Text;
-                    obj.bitHabilitarComponente = chkHabilitar.Checked;
-                    obj.bitMostrarComponente = chkMostrar.Checked;
+                    obj.Id = Convert.ToInt32(HFintIdComponente.Value);
+                    obj.IdPadre = Convert.ToInt32(HFintIdComponentePadre.Value);
+                    obj.Tipo = new TipoComponente(Convert.ToInt32(cboTipoComponente.SelectedValue), Convert.ToString(cboTipoComponente.SelectedItem));
+                    obj.Nombre = txtComponente.Text;
+                    obj.Detalle = txtComponenteDetalle.Text;
+                    obj.Icono = txtComponenteIcono.Text;
+                    obj.Url = txtComponenteUrl.Text;
+                    obj.Habilitado = chkHabilitar.Checked;
+                    obj.Mostrado = chkMostrar.Checked;
 
                     ComponenteDA objDA = new ComponenteDA();
                     int r = 0;
-                    if (obj.intIdComponente == 0)
+                    if (obj.Id == 0)
                         r = objDA.Guardar(obj);
                     else
                         r = objDA.Actualizar(obj);
@@ -444,7 +444,7 @@ namespace MeetUp
             try
             {
                 List<Componente> iComponentes = (List<Componente>)ViewState["iComponentes"];
-                Componente obj = iComponentes.Where(c => c.intIdComponente == Convert.ToInt32(HFintIdComponente.Value)).ToList().First();
+                Componente obj = iComponentes.Where(c => c.Id == Convert.ToInt32(HFintIdComponente.Value)).ToList().First();
 
                 CargarCamposComponentes(obj);
             }
@@ -475,7 +475,7 @@ namespace MeetUp
                 int intId = Convert.ToInt32(HFintIdComponente.Value);
                 ComponenteDA objDA = new ComponenteDA();
                 Componente obj = new Componente();
-                obj.intIdComponente = intId;
+                obj.Id = intId;
                 int r = objDA.Eliminar(obj);
                 if (r > 0)
                 {
@@ -537,14 +537,14 @@ namespace MeetUp
                 iComponentes = objDA.Cargar(new Componente());
                 ViewState["iComponentes"] = iComponentes;
 
-                List<Componente> parents = iComponentes.Where(p => p.intIdComponentePadre == 0).ToList();
+                List<Componente> parents = iComponentes.Where(p => p.IdPadre == 0).ToList();
 
                 foreach (Componente parentComponent in parents)
                 {
-                    List<Componente> hijos = iComponentes.Where(p => p.intIdComponentePadre == parentComponent.intIdComponente).ToList();
+                    List<Componente> hijos = iComponentes.Where(p => p.IdPadre == parentComponent.Id).ToList();
                     TreeNode parent = new TreeNode();
                     parent.Value = new JavaScriptSerializer().Serialize(parentComponent);
-                    parent.Text = string.Format("<i class=\"now-ui-icons  {0}\"></i> <span oncontextmenu=\"treeViewContextMenu(event, {2});\">{1}</span>", parentComponent.strIconoComponente, parentComponent.strComponente, parentComponent.intIdComponente);
+                    parent.Text = string.Format("<i class=\"now-ui-icons  {0}\"></i> <span oncontextmenu=\"treeViewContextMenu(event, {2});\">{1}</span>", parentComponent.Icono, parentComponent.Nombre, parentComponent.Id);
                     if (hijos.Count > 0)//tiene hijosS
                     {
                         parent.Text = string.Format("<i class=\"fas fa-caret-right\"></i> {0}", parent.Text);
@@ -568,16 +568,16 @@ namespace MeetUp
         {
             TreeNode result = new TreeNode();
             result.Value = new JavaScriptSerializer().Serialize(obj);
-            result.Text = string.Format("<i class=\"now-ui-icons  {0}\"></i> <span oncontextmenu=\"treeViewContextMenu(event, {2});\">{1}</span>", obj.strIconoComponente, obj.strComponente, obj.intIdComponente);
+            result.Text = string.Format("<i class=\"now-ui-icons  {0}\"></i> <span oncontextmenu=\"treeViewContextMenu(event, {2});\">{1}</span>", obj.Icono, obj.Nombre, obj.Id);
             try
             {
-                List<Componente> iHijos = iComponents.Where(p => p.intIdComponentePadre == obj.intIdComponente).ToList();
+                List<Componente> iHijos = iComponents.Where(p => p.IdPadre == obj.Id).ToList();
                 if (iHijos.Count > 0)//tiene hijos
                 {
                     result.Text = string.Format("<i class=\"fas fa-caret-right\"></i> {0}", result.Text);
                     foreach (Componente component in iHijos)
                     {
-                        result.ChildNodes.Add(BuscarHijosTreeNode(component, iComponents, "collapse" + obj.intIdComponente, (intMargin + 8)));
+                        result.ChildNodes.Add(BuscarHijosTreeNode(component, iComponents, "collapse" + obj.Id, (intMargin + 8)));
                     }
                 }
             }
@@ -606,8 +606,8 @@ namespace MeetUp
         {
             try
             {
-                txtTipoDocumento.Text = obj.strDescrip;
-                HFintIdTipoDocumento.Value = Convert.ToString(obj.intId);
+                txtTipoDocumento.Text = obj.Descrip;
+                HFintIdTipoDocumento.Value = Convert.ToString(obj.Id);
                 pnlTipoDocumento.Visible = true;
             }
             catch (Exception ex)
@@ -686,12 +686,12 @@ namespace MeetUp
                 if (ValidarCamposTipoDocumento())
                 {
                     TipoDocumento obj = new TipoDocumento();
-                    obj.intId = Convert.ToInt32(HFintIdTipoDocumento.Value);
-                    obj.strDescrip = txtTipoDocumento.Text;
+                    obj.Id = Convert.ToInt32(HFintIdTipoDocumento.Value);
+                    obj.Descrip = txtTipoDocumento.Text;
 
                     TipoDocumentoDA objDA = new TipoDocumentoDA();
                     int r = 0;
-                    if(obj.intId == 0)
+                    if(obj.Id == 0)
                         r = objDA.Guardar(obj);
                     else
                         r = objDA.Actualizar(obj);
@@ -743,8 +743,8 @@ namespace MeetUp
         {
             try
             {
-                txtTipoComponente.Text = obj.strDescrip;
-                HFintIdTipoComponente.Value = Convert.ToString(obj.intId);
+                txtTipoComponente.Text = obj.Descrip;
+                HFintIdTipoComponente.Value = Convert.ToString(obj.Id);
                 pnlTipoComponente.Visible = true;
             }
             catch (Exception ex)
@@ -823,12 +823,12 @@ namespace MeetUp
                 if (ValidarCamposTipoComponente())
                 {
                     TipoComponente obj = new TipoComponente();
-                    obj.intId = Convert.ToInt32(HFintIdTipoComponente.Value);
-                    obj.strDescrip = txtTipoComponente.Text;
+                    obj.Id = Convert.ToInt32(HFintIdTipoComponente.Value);
+                    obj.Descrip = txtTipoComponente.Text;
 
                     TipoComponenteDA objDA = new TipoComponenteDA();
                     int r = 0;
-                    if (obj.intId == 0)
+                    if (obj.Id == 0)
                         r = objDA.Guardar(obj);
                     else
                         r = objDA.Actualizar(obj);

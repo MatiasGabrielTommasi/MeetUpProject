@@ -28,8 +28,8 @@ namespace MeetUp
                     Usuario obj = objDa.Login(strUsuario);
                     if (obj != null)
                     {
-                        string strPass = Funciones.Decrypt(obj.strContrasenia);
-                        if (txtContrasenia.Text.Equals(strPass) && txtUsuario.Text.Equals(obj.strUsuario))
+                        string strPass = Funciones.Decrypt(obj.Contrasenia);
+                        if (txtContrasenia.Text.Equals(strPass) && txtUsuario.Text.Equals(obj.Username))
                         {
                             Session["objUser"] = obj;
                             Response.Redirect("~/Default.aspx");

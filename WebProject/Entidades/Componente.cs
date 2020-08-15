@@ -5,44 +5,42 @@ namespace Entidades
 	[Serializable]
 	public class Componente 
 	{
-		public int intIdComponente { get; set; }
-		public int intIdComponentePadre { get; set; }
-		public TipoComponente oTipoComponente { get; set; }
-		public string strComponente { get; set; }
-		public string strUrlComponente { get; set; }
-		public bool bitHabilitarComponente { get; set; }
-		public bool bitMostrarComponente { get; set; }
-		public string strDetalleComponente { get; set; }
-		public string strIconoComponente { get; set; }
+		public int Id { get; set; }
+		public int IdPadre { get; set; }
+		public TipoComponente Tipo { get; set; }
+		public string Nombre { get; set; }
+		public string Url { get; set; }
+		public bool Habilitado { get; set; }
+		public bool Mostrado { get; set; }
+		public string Detalle { get; set; }
+		public string Icono { get; set; }
 		public Componente()
 		{
-			int _cero = 0;
-			string _vacio = string.Empty;
-			this.intIdComponente = _cero;
-			this.intIdComponentePadre = _cero;
-			this.oTipoComponente = new TipoComponente(); ;
-			this.strComponente = _vacio;
-			this.strUrlComponente = _vacio;
-			this.bitHabilitarComponente = false;
-			this.bitMostrarComponente = false;
-			this.strDetalleComponente = _vacio;
-			this.strIconoComponente = _vacio;
+			this.Id = 0;
+			this.IdPadre = 0;
+			this.Tipo = new TipoComponente(); ;
+			this.Nombre = string.Empty;
+			this.Url = string.Empty;
+			this.Habilitado = false;
+			this.Mostrado = false;
+			this.Detalle = string.Empty;
+			this.Icono = string.Empty;
 		}
-		public Componente (int intIdComponente, int intIdComponentePadre, TipoComponente oTipoComponente, string strComponente, string strUrlComponente, bool bitHabilitarComponente, bool bitMostrarComponente, string strDetalleComponente, string strIconoComponente)
+		public Componente (int Id, int IdPadre, TipoComponente Tipo, string Nombre, string Url, bool Habilitado, bool Mostrado, string Detalle, string Icono)
 		{
-			this.intIdComponente = intIdComponente;
-			this.intIdComponentePadre = intIdComponentePadre;
-			this.oTipoComponente = oTipoComponente;
-			this.strComponente = strComponente;
-			this.strUrlComponente = strUrlComponente;
-			this.bitHabilitarComponente = bitHabilitarComponente;
-			this.bitMostrarComponente = bitMostrarComponente;
-			this.strDetalleComponente = strDetalleComponente;
-			this.strIconoComponente = strIconoComponente;
+			this.Id = Id;
+			this.IdPadre = IdPadre;
+			this.Tipo = Tipo;
+			this.Nombre = Nombre;
+			this.Url = Url;
+			this.Habilitado = Habilitado;
+			this.Mostrado = Mostrado;
+			this.Detalle = Detalle;
+			this.Icono = Icono;
 		}
         public override string ToString()
         {
-			return string.Format("({0}) {1}", this.intIdComponente, this.strComponente);
+			return string.Format("({0}) {1}", this.Id, this.Nombre);
         }
     }
 }

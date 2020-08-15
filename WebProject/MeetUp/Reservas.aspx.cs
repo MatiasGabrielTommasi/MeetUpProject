@@ -28,11 +28,11 @@ namespace MeetUp
         private void ValidarAcceso()
         {
             Usuario objUser = (Usuario)Session["objUser"];
-            List<Componente> iComponentes = objUser.iPerfiles.SelectMany(p => p.iComponentes).Distinct().ToList();
+            List<Componente> iComponentes = objUser.Perfiles.SelectMany(p => p.Componentes).Distinct().ToList();
             List<WebControl> iControls = new List<WebControl>() { pnlReservas };
             foreach (WebControl control in iControls)
             {
-                control.Visible = (iComponentes.Where(c => c.strDetalleComponente == control.ID).ToList().Count > 0);
+                control.Visible = (iComponentes.Where(c => c.Detalle == control.ID).ToList().Count > 0);
             }
         }
 
@@ -73,12 +73,12 @@ namespace MeetUp
 
                 EventoDA objEventoDA = new EventoDA();
                 Evento objEvento = new Evento();
-                objEvento.intIdEvento = Convert.ToInt32(HFintIdEvento.Value);
+                objEvento.Id = Convert.ToInt32(HFintIdEvento.Value);
                 objEvento = objEventoDA.Cargar(objEvento).First();
 
                 Reserva obj = new Reserva();
-                obj.oEvento = objEvento;
-                obj.oUsuario = (Usuario)Session["objUser"];
+                obj.EventoSeleccionado = objEvento;
+                obj.Asistente = (Usuario)Session["objUser"];
 
                 ReservaDA objDA = new ReservaDA();
                 r = objDA.Guardar(obj);
@@ -113,13 +113,13 @@ namespace MeetUp
             switch (e.CommandName)
             {
                 case "qrItem"://mostrar modal qr
-                    obj.intIdReserva = intIdReserva;
+                    obj.Id = intIdReserva;
                     obj = objDA.Cargar(obj).FirstOrDefault();
                     MostrarComprobanteReserva(obj);
                     break;
                 case "deleteItem":
                     ReservaDA evtDA = new ReservaDA();
-                    obj.intIdReserva = intIdReserva;
+                    obj.Id = intIdReserva;
                     int r = objDA.Eliminar(obj);
                     if (r > 0)
                     {
@@ -143,7 +143,7 @@ namespace MeetUp
                 string strReservasJson = string.Empty;
                 for (int i = 0; i < obj.Count; i++)
                 {
-                    if (obj[i].datFechaEvento.Date >= DateTime.Now.Date)
+                    if (obj[i].DiaSeleccionado.Fecha.Date >= DateTime.Now.Date)
                     {
                         string strReserva = obj[i].ToReservaCalendarioString();
 
@@ -168,12 +168,12 @@ namespace MeetUp
             try
             {
                 string strEvento = string.Format("Evento: {0} <br/> Fecha: {1} <br/> Sala: {2} ({3}) <br/> Anfitrión: {4}, {5} <br/> Reservado el día: {6}",
-                                                    obj.oEvento.strEvento, obj.oEvento.datFechaEvento.ToString("dd/MM/yyyy"),
-                                                    obj.oEvento.oSala.strSala, obj.oEvento.oSala.strUbicacion
-                                                    , obj.oEvento.oUsuarioAnfitrion.strApellido, obj.oEvento.oUsuarioAnfitrion.strNombre,
-                                                    obj.datFechaReserva.ToString("dd/MM/yyyy"));
+                                                    obj.EventoSeleccionado.Nombre, obj.EventoSeleccionado.DiaSeleccionado.Fecha.ToString("dd/MM/yyyy"),
+                                                    obj.EventoSeleccionado.Salon.Nombre, obj.EventoSeleccionado.Salon.Ubicacion
+                                                    , obj.EventoSeleccionado.UsuarioAnfitrion.Apellido, obj.EventoSeleccionado.UsuarioAnfitrion.Nombre,
+                                                    obj.Fecha.ToString("dd/MM/yyyy"));
                 lblEventoQR.InnerHtml = strEvento;
-                imgQR.ImageUrl = string.Format("data:image/jpeg;base64,{0}", obj.strQr);
+                imgQR.ImageUrl = string.Format("data:image/jpeg;base64,{0}", obj.Qr);
 
                 string _js = "$('#modalQR').modal('show');";
                 Main main = (Main)this.Master;

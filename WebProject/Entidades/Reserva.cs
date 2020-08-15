@@ -5,39 +5,37 @@ namespace Entidades
 	[Serializable]
 	public class Reserva 
 	{
-		public int intIdReserva { get; set; }
-		public Evento oEvento { get; set; }
-		public DateTime datFechaReserva { get; set; }
-		public Usuario oUsuario { get; set; }
-		public string strQr { get; set; }
-		public decimal decConsumo { get; set; }
-		public bool bitConsumoFinalizado { get; set; }
+		public int Id { get; set; }
+		public Evento EventoSeleccionado { get; set; }
+		public DateTime Fecha { get; set; }
+		public Usuario Asistente { get; set; }
+		public string Qr { get; set; }
+		public decimal Consumo { get; set; }
+		public bool ConsumeTotal { get; set; }
 		public Reserva ()
 		{
-			int _cero = 0;
-			string _vacio = string.Empty;
-			this.intIdReserva = _cero;
-			this.oEvento = new Evento();
-			this.datFechaReserva = DateTime.Now;
-			this.oUsuario = new Usuario();
-			this.strQr = _vacio;
-			this.decConsumo = Convert.ToDecimal(_cero);
-			this.bitConsumoFinalizado = false;
+			this.Id = 0;
+			this.EventoSeleccionado = new Evento();
+			this.Fecha = DateTime.Now;
+			this.Asistente = new Usuario();
+			this.Qr = string.Empty;
+			this.Consumo = Convert.ToDecimal(0);
+			this.ConsumeTotal = false;
 		}
-		public Reserva (int intIdReserva, DateTime datFechaReserva, string strQr, decimal decConsumo, bool bitConsumoFinalizado)
+		public Reserva (int Id, DateTime Fecha, string QR, decimal Consumo, bool ConsumeTotal)
 		{
-			this.intIdReserva = intIdReserva;
-			this.oEvento = new Evento();
-			this.datFechaReserva = datFechaReserva;
-			this.oUsuario = new Usuario();
-			this.strQr = strQr;
-			this.decConsumo = decConsumo;
-			this.bitConsumoFinalizado = bitConsumoFinalizado;
+			this.Id = Id;
+			this.EventoSeleccionado = new Evento();
+			this.Fecha = Fecha;
+			this.Asistente = new Usuario();
+			this.Qr = QR;
+			this.Consumo = Consumo;
+			this.ConsumeTotal = ConsumeTotal;
 		}
         public override string ToString()
         {
 			return string.Format("({0}) Usuario: {1} - Evento: {2} - Fecha de la reserva: {3}"
-				, this.intIdReserva, this.oUsuario.strUsuario, this.oEvento.strEvento, this.datFechaReserva.ToString("dd/MM/yyyy"));
+				, this.Id, this.Asistente.Username, this.EventoSeleccionado.Nombre, this.Fecha.ToString("dd/MM/yyyy"));
         }
     }
 }

@@ -33,9 +33,9 @@ namespace MeetUp.Controles
         {
             try
             {
-                List<Componente> iComponentes = obj.iPerfiles.SelectMany(p => p.iComponentes).Distinct().ToList();
-                Componente ComponenteMenu = iComponentes.Where(c => c.strDetalleComponente == "V").ToList().FirstOrDefault();
-                List<Componente> iMenuVertical = iComponentes.Where(c => c.intIdComponentePadre == ComponenteMenu.intIdComponente).ToList();
+                List<Componente> iComponentes = obj.Perfiles.SelectMany(p => p.Componentes).Distinct().ToList();
+                Componente ComponenteMenu = iComponentes.Where(c => c.Detalle == "V").ToList().FirstOrDefault();
+                List<Componente> iMenuVertical = iComponentes.Where(c => c.IdPadre == ComponenteMenu.Id).ToList();
 
                 liCerrarSesion.Visible = true;
                 string strMenuVertical = string.Empty;
@@ -46,7 +46,7 @@ namespace MeetUp.Controles
                                                             "<i class=\"now-ui-icons {1}\"></i>" +
                                                             "<p>{2}</p>" +
                                                         "</a>" +
-                                                    "</li>", boton.strUrlComponente, boton.strIconoComponente, boton.strComponente);
+                                                    "</li>", boton.Url, boton.Icono, boton.Nombre);
 
                 }
 

@@ -22,14 +22,14 @@ namespace MeetUpTest
         {
             string str = "componente";
             Componente obj = new Componente();
-            obj.bitHabilitarComponente = true;
-            obj.bitMostrarComponente = true;
-            obj.intIdComponentePadre = 0;
-            obj.oTipoComponente = new TipoComponente(2, string.Empty);
-            obj.strComponente = str;
-            obj.strDetalleComponente = str;
-            obj.strIconoComponente = str;
-            obj.strUrlComponente = str;
+            obj.Habilitado = true;
+            obj.Mostrado = true;
+            obj.IdPadre = 0;
+            obj.Tipo = new TipoComponente(2, string.Empty);
+            obj.Nombre = str;
+            obj.Detalle = str;
+            obj.Icono = str;
+            obj.Url = str;
             ComponenteDA objDA = new ComponenteDA();
             int r = objDA.Guardar(obj);
             Assert.IsTrue(r > 0);
@@ -39,15 +39,15 @@ namespace MeetUpTest
         {
             string str = "componente actualizado";
             Componente obj = new Componente();
-            obj.intIdComponente = 5;
-            obj.bitHabilitarComponente = true;
-            obj.bitMostrarComponente = true;
-            obj.intIdComponentePadre = 0;
-            obj.oTipoComponente = new TipoComponente(2, string.Empty);
-            obj.strComponente = str;
-            obj.strDetalleComponente = str;
-            obj.strIconoComponente = str;
-            obj.strUrlComponente = str;
+            obj.Id = 5;
+            obj.Habilitado = true;
+            obj.Mostrado = true;
+            obj.IdPadre = 0;
+            obj.Tipo = new TipoComponente(2, string.Empty);
+            obj.Nombre = str;
+            obj.Detalle = str;
+            obj.Icono = str;
+            obj.Url = str;
             ComponenteDA objDA = new ComponenteDA();
             int r = objDA.Actualizar(obj);
             Assert.IsTrue(r > 0);
@@ -56,7 +56,7 @@ namespace MeetUpTest
         public void Eliminar()
         {
             Componente obj = new Componente();
-            obj.intIdComponente = 5;
+            obj.Id = 5;
             ComponenteDA objDA = new ComponenteDA();
             int r = objDA.Eliminar(obj);
             Assert.IsTrue(r > 0);

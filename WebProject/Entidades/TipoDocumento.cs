@@ -6,7 +6,7 @@ namespace Entidades
     public class TipoDocumento : _ModelType
     {
         public TipoDocumento() : base() { }
-        public TipoDocumento(int intId, string strDescrip) : base(intId, strDescrip) { }
+        public TipoDocumento(int Id, string Descrip) : base(Id, Descrip) { }
         public override string ToString()
         {
             return base.ToString();

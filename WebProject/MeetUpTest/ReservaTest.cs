@@ -22,12 +22,12 @@ namespace MeetUpTest
         public void Guardar()
         {
             Reserva obj = new Reserva();
-            obj.datFechaReserva = DateTime.Now;
-            obj.bitConsumoFinalizado = false;
-            obj.oEvento.intIdEvento = 2;
-            obj.oUsuario.intIdUsuario = 2;
-            obj.oUsuario.strContrasenia = "hHMylv7X7ifcMtSz9YrBoQ==";
-            obj.decConsumo = Convert.ToDecimal(0);
+            obj.Fecha = DateTime.Now;
+            obj.ConsumeTotal = false;
+            obj.EventoSeleccionado.Id = 2;
+            obj.Asistente.Id = 2;
+            obj.Asistente.Contrasenia = "hHMylv7X7ifcMtSz9YrBoQ==";
+            obj.Consumo = Convert.ToDecimal(0);
             ReservaDA objDA = new ReservaDA();
             int r = objDA.Guardar(obj);
             Assert.IsTrue(r > 0);
@@ -36,7 +36,7 @@ namespace MeetUpTest
         public void Eliminar()
         {
             Reserva obj = new Reserva();
-            obj.intIdReserva = 1;
+            obj.Id = 1;
             ReservaDA objDA = new ReservaDA();
             int r = objDA.Eliminar(obj);
             Assert.IsTrue(r > 0);

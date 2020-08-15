@@ -6,7 +6,7 @@ namespace Entidades
     public class TipoComponente : _ModelType
 	{
 		public TipoComponente() : base() { }
-		public TipoComponente(int intId, string strDescrip) : base(intId, strDescrip) { }
+		public TipoComponente(int Id, string Descrip) : base(Id, Descrip) { }
         public override string ToString()
         {
             return base.ToString();

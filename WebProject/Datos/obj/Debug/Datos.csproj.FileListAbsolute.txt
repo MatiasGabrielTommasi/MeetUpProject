@@ -19,3 +19,5 @@ C:\MeetUpSantander\WebProject\Datos\obj\Debug\Datos.pdb
 C:\MeetUpSantander\WebProject\Datos\bin\Debug\Utilidades.dll
 C:\MeetUpSantander\WebProject\Datos\bin\Debug\Utilidades.pdb
 C:\MeetUpSantander\WebProject\Datos\bin\Debug\QRCoder.dll
+C:\MeetUpSantander\WebProject\Datos\bin\Debug\RestSharp.dll
+C:\MeetUpSantander\WebProject\Datos\bin\Debug\RestSharp.xml

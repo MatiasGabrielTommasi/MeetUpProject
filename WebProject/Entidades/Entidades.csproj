@@ -42,7 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiTemperature.cs" />
     <Compile Include="Componente.cs" />
+    <Compile Include="Dia.cs" />
     <Compile Include="Evento.cs" />
     <Compile Include="Perfil.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

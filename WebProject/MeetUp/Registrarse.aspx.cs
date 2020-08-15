@@ -41,26 +41,26 @@ namespace MeetUp
                     int intId = Convert.ToInt32(HFintIdUsuario.Value);
                     string strProfile = txtUsuario.Text;
                     Usuario obj = new Usuario();
-                    obj.intIdUsuario = Convert.ToInt32(HFintIdUsuario.Value);
-                    obj.oTipoDocumento = new TipoDocumento(Convert.ToInt32(cboTipoDocumento.SelectedValue), Convert.ToString(cboTipoDocumento.SelectedItem));
-                    obj.strApellido = txtApellido.Text;
-                    obj.strCorreoUsuario = txtCorreo.Text;
-                    obj.strNombre = txtNombre.Text;
-                    obj.strNumeroDocumento = txtDocumento.Text;
-                    obj.strUsuario = txtUsuario.Text;
+                    obj.Id = Convert.ToInt32(HFintIdUsuario.Value);
+                    obj.TipoDoc = new TipoDocumento(Convert.ToInt32(cboTipoDocumento.SelectedValue), Convert.ToString(cboTipoDocumento.SelectedItem));
+                    obj.Apellido = txtApellido.Text;
+                    obj.Correo = txtCorreo.Text;
+                    obj.Nombre = txtNombre.Text;
+                    obj.NumeroDoc = txtDocumento.Text;
+                    obj.Username = txtUsuario.Text;
 
-                    obj.iPerfiles.Add(new Perfil(4, string.Empty));
+                    obj.Perfiles.Add(new Perfil(4, string.Empty));
 
                     UsuarioDA objDA = new UsuarioDA();
-                    if (obj.intIdUsuario == 0)
+                    if (obj.Id == 0)
                     {
-                        obj.strContrasenia = Funciones.Encrypt("123456");
+                        obj.Contrasenia = Funciones.Encrypt("123456");
                         r = objDA.Guardar(obj);
                     }
 
                     if (r > 0)
                     {
-                        obj = objDA.Login(obj.strUsuario);
+                        obj = objDA.Login(obj.Username);
                         Session["objUser"] = obj;
                         Response.Redirect("~/Default.aspx");
                     }

@@ -9,21 +9,21 @@ namespace Entidades
     [Serializable]
     public class _ModelType
     {
-        public int intId { get; set; }
-        public string strDescrip { get; set; }
+        public int Id { get; set; }
+        public string Descrip { get; set; }
         public _ModelType()
         {
-            this.intId = 0;
-            this.strDescrip = string.Empty;
+            this.Id = 0;
+            this.Descrip = string.Empty;
         }
-        public _ModelType(int intId, string strDescrip)
+        public _ModelType(int Id, string Descrip)
         {
-            this.intId = intId;
-            this.strDescrip = strDescrip;
+            this.Id = Id;
+            this.Descrip = Descrip;
         }
         public override string ToString()
         {
-            return string.Format("({0}) {1}", this.intId, this.strDescrip);
+            return string.Format("({0}) {1}", this.Id, this.Descrip);
         }
     }
 }

@@ -28,11 +28,11 @@ namespace MeetUp
         private void ValidarAcceso()
         {
             Usuario objUser = (Usuario)Session["objUser"];
-            List<Componente> iComponentes = objUser.iPerfiles.SelectMany(p => p.iComponentes).Distinct().ToList();
+            List<Componente> iComponentes = objUser.Perfiles.SelectMany(p => p.Componentes).Distinct().ToList();
             List<WebControl> iControls = new List<WebControl>() { pnlEventos };
             foreach (WebControl control in iControls)
             {
-                control.Visible = (iComponentes.Where(c => c.strDetalleComponente == control.ID).ToList().Count > 0);
+                control.Visible = (iComponentes.Where(c => c.Detalle == control.ID).ToList().Count > 0);
             }
         }
 
@@ -74,7 +74,18 @@ namespace MeetUp
             try
             {
                 EventoDA objDA = new EventoDA();
-                gvEvento.DataSource = objDA.Cargar(new Evento());
+                List<Evento> obj = objDA.Cargar(new Evento());
+                List<ApiTemperature> iTemp = Funciones.ObtenerListadoTemperaturas();
+                foreach (Evento evento in obj)
+                {
+                    List<ApiTemperature> ExisteFecha = iTemp.Where(t => t.Fecha.Date == evento.DiaSeleccionado.Fecha.Date).ToList();
+                    if (ExisteFecha.Count > 0)
+                    {
+                        evento.DiaSeleccionado.Fecha = ExisteFecha.First().Fecha;
+                        evento.DiaSeleccionado.Temperatura = ExisteFecha.First().Temperatura;
+                    }
+                }
+                gvEvento.DataSource = obj;
                 gvEvento.DataBind();
                 upGridEvento.Update();
             }
@@ -104,24 +115,24 @@ namespace MeetUp
                 {
                     SalaDA objSalaDA = new SalaDA();
                     Sala objSala = new Sala();
-                    objSala.intIdSala = Convert.ToInt32(cboSala.SelectedValue);
+                    objSala.Id = Convert.ToInt32(cboSala.SelectedValue);
                     objSala = objSalaDA.Cargar(objSala).First();
-                    if (objSala.intCupo >= Convert.ToInt32(txtCupo.Text))
+                    if (objSala.Cupo >= Convert.ToInt32(txtCupo.Text))
                     {
 
                         int r = 0;
                         int intId = Convert.ToInt32(HFintIdEvento.Value);
                         Evento obj = new Evento();
-                        obj.intIdEvento = Convert.ToInt32(HFintIdEvento.Value);
-                        obj.intTotalAsistentes = Convert.ToInt32(txtCupo.Text);
-                        obj.strEvento = txtNombre.Text;
-                        obj.datFechaEvento = Convert.ToDateTime(txtFecha.Text);
-                        obj.oSala.intIdSala = Convert.ToInt32(cboSala.SelectedValue);
-                        obj.oSala.strSala = Convert.ToString(cboSala.SelectedItem);
-                        obj.oUsuarioAnfitrion = (Usuario)Session["objUser"];
+                        obj.Id = Convert.ToInt32(HFintIdEvento.Value);
+                        obj.TotalAsistentes = Convert.ToInt32(txtCupo.Text);
+                        obj.Nombre = txtNombre.Text;
+                        obj.DiaSeleccionado.Fecha = Convert.ToDateTime(txtFecha.Text);
+                        obj.Salon.Id = Convert.ToInt32(cboSala.SelectedValue);
+                        obj.Salon.Nombre = Convert.ToString(cboSala.SelectedItem);
+                        obj.UsuarioAnfitrion = (Usuario)Session["objUser"];
 
                         EventoDA objDA = new EventoDA();
-                        if (obj.intIdEvento == 0)
+                        if (obj.Id == 0)
                             r = objDA.Guardar(obj);
                         else
                             r = objDA.Actualizar(obj);
@@ -190,14 +201,14 @@ namespace MeetUp
             switch (e.CommandName)
             {
                 case "editItem":
-                    obj.intIdEvento = intIdEvento;
+                    obj.Id = intIdEvento;
                     obj = objDA.Cargar(obj).FirstOrDefault();
                     CargarCamposEvento(obj);
                     pnlEvento.Visible = true;
                     break;
                 case "deleteItem":
                     EventoDA evtDA = new EventoDA();
-                    obj.intIdEvento = intIdEvento;
+                    obj.Id = intIdEvento;
                     int r = objDA.Eliminar(obj);
                     if (r > 0)
                     {
@@ -217,13 +228,13 @@ namespace MeetUp
                 List<Evento> obj = new List<Evento>();
                 EventoDA objDA = new EventoDA();
                 Evento objEvento = new Evento();
-                objEvento.oSala.intIdSala = intIdSala;
+                objEvento.Salon.Id = intIdSala;
                 obj = objDA.Cargar(objEvento);
 
                 string strEventosJson = string.Empty;
                 for (int i = 0; i < obj.Count; i++)
                 {
-                    if (obj[i].datFechaEvento.Date >= DateTime.Now.Date)
+                    if (obj[i].DiaSeleccionado.Fecha.Date >= DateTime.Now.Date)
                     {
                         string strEvento = obj[i].ToEventoCalendarioString();
 
@@ -249,13 +260,13 @@ namespace MeetUp
             {
                 LimpiarCamposEvento();
 
-                txtNombre.Text = obj.strEvento;
-                txtCupo.Text = Convert.ToString(obj.intTotalAsistentes);
-                txtFecha.Text = obj.datFechaEvento.ToString("yyyy/MM/aa");
-                cboSala.SelectedValue = obj.oSala.intIdSala.ToString();
-                HFintIdEvento.Value = Convert.ToString(obj.intIdEvento);
+                txtNombre.Text = obj.Nombre;
+                txtCupo.Text = Convert.ToString(obj.TotalAsistentes);
+                txtFecha.Text = obj.DiaSeleccionado.Fecha.ToString("yyyy/MM/aa");
+                cboSala.SelectedValue = obj.Salon.Id.ToString();
+                HFintIdEvento.Value = Convert.ToString(obj.Id);
 
-                CargarCalendario(obj.oSala.intIdSala, "calendar-reservation");
+                CargarCalendario(obj.Salon.Id, "calendar-reservation");
 
                 pnlEvento.Visible = true;
             }
@@ -280,10 +291,22 @@ namespace MeetUp
                 CargarCalendario(intIdSala, "calendar-reservation");
 
                 Sala objSala = new Sala();
-                objSala.intIdSala = intIdSala;
+                objSala.Id = intIdSala;
                 SalaDA objSalaDA = new SalaDA();
                 objSala = objSalaDA.Cargar(objSala).First();
-                smCantidadMaxima.InnerText = string.Format("{0} como máximo", Convert.ToString(objSala.intCupo));
+                smCantidadMaxima.InnerText = string.Format("{0} como máximo", Convert.ToString(objSala.Cupo));
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        protected void gvEvento_DataBinding(object sender, EventArgs e)
+        {
+            //string.Format("{0:dd/MM/yyyy} ({1}°)", Eval("DiaSeleccionado.Fecha"), Eval("DiaSeleccionado.Temperatura"))
+            try
+            {
+
             }
             catch (Exception ex)
             {
