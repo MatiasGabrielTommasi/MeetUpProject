@@ -221,7 +221,7 @@ namespace MeetUp
                     break;
                 case "reestablecerContrasenia":
                     obj.Contrasenia = Funciones.Encrypt("123456");
-                    int r = objDA.ReestablecerContrasenia(obj);
+                    int r = objDA.CambiarContrasenia(obj);
                     if (r > 0)
                     {
                         Mensaje("Se reestablecio la contraseña correctamente", "Correcto!", AlertIcon.Icon.Check, CssClasses.CssClass.Success);

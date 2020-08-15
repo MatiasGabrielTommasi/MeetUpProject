@@ -4,11 +4,11 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="server">
     <asp:UpdatePanel runat="server" UpdateMode="Always">
         <ContentTemplate>
-            <asp:HiddenField runat="server" ID="HFintIdPerfil" Value="0" />
-            <asp:HiddenField runat="server" ID="HFintIdComponente" Value="0" />
-            <asp:HiddenField runat="server" ID="HFintIdComponentePadre" Value="0" />
-            <asp:HiddenField runat="server" ID="HFintIdTipoComponente" Value="0" />
-            <asp:HiddenField runat="server" ID="HFintIdTipoDocumento" Value="0" />
+            <asp:HiddenField runat="server" ID="HFIdPerfil" Value="0" />
+            <asp:HiddenField runat="server" ID="HFIdComponente" Value="0" />
+            <asp:HiddenField runat="server" ID="HFIdComponentePadre" Value="0" />
+            <asp:HiddenField runat="server" ID="HFIdTipoComponente" Value="0" />
+            <asp:HiddenField runat="server" ID="HFIdTipoDocumento" Value="0" />
         </ContentTemplate>
     </asp:UpdatePanel>
     <div class="main-panel" id="main-panel">
@@ -58,10 +58,10 @@
                               <asp:GridView CssClass="table table-hover" ID="gvPerfil" runat="server" AllowPaging="true" AutoGenerateColumns="false" EmptyDataText="No Profile found." GridLines="None"
                                    OnPageIndexChanging="gvPerfil_PageIndexChanging" OnRowCommand="gvPerfil_RowCommand" PageSize="10" ShowHeader="false">
                                   <Columns>
-                                      <asp:BoundField HeaderText="Description" DataField="strDescrip" />
+                                      <asp:BoundField HeaderText="Description" DataField="Descrip" />
                                       <asp:TemplateField ItemStyle-Width="100">
                                           <ItemTemplate>    
-                                              <asp:LinkButton ID="btnEditar" CommandName="editItem" CommandArgument='<%# Eval("intId") %>' runat="server" CssClass="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons design-2_ruler-pencil"></i></asp:LinkButton>
+                                              <asp:LinkButton ID="btnEditar" CommandName="editItem" CommandArgument='<%# Eval("Id") %>' runat="server" CssClass="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons design-2_ruler-pencil"></i></asp:LinkButton>
                                           </ItemTemplate>
                                       </asp:TemplateField>
                                   </Columns>
@@ -194,11 +194,11 @@
                                    OnPageIndexChanging="gvTipoComponente_PageIndexChanging" OnRowCommand="gvTipoComponente_RowCommand" PageSize="5"
                                   ShowHeader="false" >
                                   <Columns>
-                                      <asp:BoundField HeaderText="Description" DataField="strDescrip" />
+                                      <asp:BoundField HeaderText="Description" DataField="Descrip" />
                                       <asp:TemplateField ItemStyle-Width="100">
                                           <ItemTemplate>    
-                                              <asp:LinkButton ID="btnEditar" CommandName="editItem" CommandArgument='<%# Eval("intId") %>' runat="server" CssClass="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons design-2_ruler-pencil"></i></asp:LinkButton>
-                                              <asp:LinkButton ID="btnEliminar" CommandName="deleteItem" CommandArgument='<%# Eval("intId") %>' runat="server" CssClass="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons ui-1_simple-remove"></i></asp:LinkButton>
+                                              <asp:LinkButton ID="btnEditar" CommandName="editItem" CommandArgument='<%# Eval("Id") %>' runat="server" CssClass="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons design-2_ruler-pencil"></i></asp:LinkButton>
+                                              <asp:LinkButton ID="btnEliminar" CommandName="deleteItem" CommandArgument='<%# Eval("Id") %>' runat="server" CssClass="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons ui-1_simple-remove"></i></asp:LinkButton>
                                           </ItemTemplate>
                                       </asp:TemplateField>
                                   </Columns>
@@ -247,11 +247,11 @@
                                    OnPageIndexChanging="gvTipoDocumento_PageIndexChanging" OnRowCommand="gvTipoDocumento_RowCommand" PageSize="5"
                                   ShowHeader="false" >
                                   <Columns>
-                                      <asp:BoundField HeaderText="Description" DataField="strDescrip" />
+                                      <asp:BoundField HeaderText="Description" DataField="Descrip" />
                                       <asp:TemplateField ItemStyle-Width="100">
                                           <ItemTemplate>    
-                                              <asp:LinkButton ID="btnEditar" CommandName="editItem" CommandArgument='<%# Eval("intId") %>' runat="server" CssClass="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons design-2_ruler-pencil"></i></asp:LinkButton>
-                                              <asp:LinkButton ID="btnEliminar" CommandName="deleteItem" CommandArgument='<%# Eval("intId") %>' runat="server" CssClass="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons ui-1_simple-remove"></i></asp:LinkButton>
+                                              <asp:LinkButton ID="btnEditar" CommandName="editItem" CommandArgument='<%# Eval("Id") %>' runat="server" CssClass="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons design-2_ruler-pencil"></i></asp:LinkButton>
+                                              <asp:LinkButton ID="btnEliminar" CommandName="deleteItem" CommandArgument='<%# Eval("Id") %>' runat="server" CssClass="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons ui-1_simple-remove"></i></asp:LinkButton>
                                           </ItemTemplate>
                                       </asp:TemplateField>
                                   </Columns>
@@ -293,7 +293,7 @@
 
         function treeViewContextMenu(event, id) {
             event.preventDefault();
-            $("#<%= HFintIdComponente.ClientID %>").val(id);
+            $("#<%= HFIdComponente.ClientID %>").val(id);
             $("#context-menu-title").html(event.target.innerHTML);
 
 

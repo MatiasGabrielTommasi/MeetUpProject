@@ -82,28 +82,28 @@
                               <asp:GridView CssClass="table table-hover" ID="gvSala" runat="server" AllowPaging="true" AutoGenerateColumns="false" EmptyDataText="No Profile found." GridLines="None"
                                    OnPageIndexChanging="gvSala_PageIndexChanging" OnRowCommand="gvSala_RowCommand" PageSize="10" ShowHeader="false">
                                   <Columns>
-                                      <asp:BoundField HeaderText="Sala" DataField="strSala" />
-                                      <asp:BoundField HeaderText="Cupo" DataField="intCupo" />
-                                      <asp:BoundField HeaderText="Ubicación" DataField="strUbicacion" />
+                                      <asp:BoundField HeaderText="Sala" DataField="Nombre" />
+                                      <asp:BoundField HeaderText="Cupo" DataField="Cupo" />
+                                      <asp:BoundField HeaderText="Ubicación" DataField="Ubicacion" />
                                       <asp:TemplateField ItemStyle-Width="100">
                                           <ItemTemplate>    
-                                              <asp:Label CssClass="badge badge-pill badge-danger" Text='<%# string.Format("{0}", Eval("intEventosVencidos")) %>' runat="server" />
+                                              <asp:Label CssClass="badge badge-pill badge-danger" Text='<%# string.Format("{0}", Eval("EventosVencidos")) %>' runat="server" />
                                           </ItemTemplate>
                                       </asp:TemplateField>
                                       <asp:TemplateField ItemStyle-Width="100">
                                           <ItemTemplate>    
-                                              <asp:Label CssClass="badge badge-pill badge-success" Text='<%# string.Format("{0}", Eval("intEventosHoy")) %>' runat="server" />
+                                              <asp:Label CssClass="badge badge-pill badge-success" Text='<%# string.Format("{0}", Eval("EventosHoy")) %>' runat="server" />
                                           </ItemTemplate>
                                       </asp:TemplateField>
                                       <asp:TemplateField ItemStyle-Width="100">
                                           <ItemTemplate>    
-                                              <asp:Label CssClass="badge badge-pill badge-info" Text='<%# string.Format("{0}", Eval("intEventosVigentes")) %>' runat="server" />
+                                              <asp:Label CssClass="badge badge-pill badge-info" Text='<%# string.Format("{0}", Eval("EventosVigentes")) %>' runat="server" />
                                           </ItemTemplate>
                                       </asp:TemplateField>
                                       <asp:TemplateField ItemStyle-Width="100">
                                           <ItemTemplate>    
-                                              <asp:LinkButton ID="btnEditar" CommandName="editItem" CommandArgument='<%# Eval("intIdSala") %>' runat="server" CssClass="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons design-2_ruler-pencil"></i></asp:LinkButton>
-                                              <asp:LinkButton ID="btnEventos" CommandName="eventosItem" CommandArgument='<%# Eval("intIdSala") %>' runat="server" CssClass="btn btn-primary btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons ui-1_calendar-60"></i></asp:LinkButton>
+                                              <asp:LinkButton ID="btnEditar" CommandName="editItem" CommandArgument='<%# Eval("Id") %>' runat="server" CssClass="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons design-2_ruler-pencil"></i></asp:LinkButton>
+                                              <asp:LinkButton ID="btnEventos" CommandName="eventosItem" CommandArgument='<%# Eval("Id") %>' runat="server" CssClass="btn btn-primary btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons ui-1_calendar-60"></i></asp:LinkButton>
                                           </ItemTemplate>
                                       </asp:TemplateField>
                                   </Columns>

@@ -90,9 +90,14 @@
                       <asp:UpdatePanel class="col-12" runat="server" ID="upGridEvento" UpdateMode="Conditional">
                           <ContentTemplate>
                               <asp:GridView CssClass="table table-hover" ID="gvEvento" runat="server" AllowPaging="true" AutoGenerateColumns="false" EmptyDataText="No Profile found." GridLines="None"
-                                   OnPageIndexChanging="gvEvento_PageIndexChanging" OnDataBinding="gvEvento_DataBinding" OnRowCommand="gvEvento_RowCommand" PageSize="10" ShowHeader="false">
+                                   OnPageIndexChanging="gvEvento_PageIndexChanging" OnRowDataBound="gvEvento_RowDataBound" OnRowCommand="gvEvento_RowCommand" PageSize="10" ShowHeader="false">
                                   <Columns>
                                       <asp:BoundField HeaderText="Evento" DataField="Nombre" />
+                                      <asp:TemplateField>
+                                          <ItemTemplate>    
+                                              <asp:Label runat="server" ID="lblCervezas" />
+                                          </ItemTemplate>
+                                      </asp:TemplateField>
                                       <asp:TemplateField>
                                           <ItemTemplate>    
                                               <asp:Label runat="server" ID="lblFecha" />

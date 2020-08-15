@@ -6,7 +6,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="cphBody" runat="server">   
     <asp:UpdatePanel runat="server">
         <ContentTemplate>
-            <asp:HiddenField runat="server" ID="HFintIdEvento" Value="0" />
+            <asp:HiddenField runat="server" ID="HFidEvento" Value="0" />
         </ContentTemplate>
     </asp:UpdatePanel>
     <div class="main-panel" id="main-panel">
@@ -54,27 +54,27 @@
                       <asp:UpdatePanel class="col-12" runat="server" ID="upGridReserva" UpdateMode="Conditional">
                           <ContentTemplate>
                               <asp:GridView CssClass="table table-hover" ID="gvReserva" runat="server" AllowPaging="true" AutoGenerateColumns="false" EmptyDataText="No Profile found." GridLines="None"
-                                   OnPageIndexChanging="gvReserva_PageIndexChanging" OnRowCommand="gvReserva_RowCommand" PageSize="10" ShowHeader="false">
+                                   OnPageIndexChanging="gvReserva_PageIndexChanging" OnRowDataBound="gvReserva_RowDataBound" OnRowCommand="gvReserva_RowCommand" PageSize="10" ShowHeader="false">
                                   <Columns>
                                       <asp:TemplateField>
                                           <ItemTemplate>    
-                                              <asp:Label runat="server" Text='<%# Eval("oEvento.strEvento") %>' />
+                                              <asp:Label runat="server" Text='<%# Eval("EventoSeleccionado.Nombre") %>' />
                                           </ItemTemplate>
                                       </asp:TemplateField>
                                       <asp:TemplateField>
                                           <ItemTemplate>    
-                                              <asp:Label runat="server" Text='<%# string.Format("{0:dd/MM/yyyy}", Eval("oEvento.datFechaEvento")) %>' />
+                                              <asp:Label runat="server" ID="lblFecha" />
                                           </ItemTemplate>
                                       </asp:TemplateField>
                                       <asp:TemplateField>
                                           <ItemTemplate>    
-                                              <asp:Label runat="server" Text='<%# string.Format("{0} ({1})", Eval("oEvento.oSala.strSala"), Eval("oEvento.oSala.strUbicacion")) %>' />
+                                              <asp:Label runat="server" Text='<%# string.Format("{0} ({1})", Eval("EventoSeleccionado.Salon.Nombre"), Eval("EventoSeleccionado.Salon.Ubicacion")) %>' />
                                           </ItemTemplate>
                                       </asp:TemplateField>
                                       <asp:TemplateField ItemStyle-Width="100">
                                           <ItemTemplate>    
-                                              <asp:LinkButton ID="btnComprobante" CommandName="qrItem" CommandArgument='<%# Eval("intIdReserva") %>' runat="server" CssClass="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"><i class="fa fa-qrcode"></i></asp:LinkButton>
-                                              <asp:LinkButton ID="btnEliminar" CommandName="deleteItem" CommandArgument='<%# Eval("intIdReserva") %>' runat="server" CssClass="btn btn-primary btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons ui-1_simple-remove"></i></asp:LinkButton>
+                                              <asp:LinkButton ID="btnComprobante" CommandName="qrItem" CommandArgument='<%# Eval("Id") %>' runat="server" CssClass="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"><i class="fa fa-qrcode"></i></asp:LinkButton>
+                                              <asp:LinkButton ID="btnEliminar" CommandName="deleteItem" CommandArgument='<%# Eval("Id") %>' runat="server" CssClass="btn btn-primary btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons ui-1_simple-remove"></i></asp:LinkButton>
                                           </ItemTemplate>
                                       </asp:TemplateField>
                                   </Columns>
@@ -147,10 +147,10 @@
                 events: Reservas,
                 eventClick: function (evento, jsEvent, view) {
                     var _evento = evento.evento;
-                    var _sala = _evento.oSala;
-                    var _anfitrion = _evento.oUsuarioAnfitrion;
-                    var _descrip = `Evento: ${_evento.strEvento} <br/> Fecha: ${moment(_evento.datFechaEvento).format('DD/MM/YYYY')} <br/> Sala: ${_sala.strSala} (${_sala.strUbicacion}) <br/> Anfitrión: ${_anfitrion.strApellido}, ${_anfitrion.strNombre}`;
-                    $("#<%= HFintIdEvento.ClientID%>").val(_evento.intIdEvento);
+                    var _sala = _evento.Salon;
+                    var _anfitrion = _evento.UsuarioAnfitrion;
+                    var _descrip = `Evento: ${_evento.Nombre} <br/> Fecha: ${moment(_evento.DiaSeleccionado.Fecha).format('DD/MM/YYYY')} <br/> Sala: ${_sala.Nombre} (${_sala.Ubicacion}) <br/> Anfitrión: ${_anfitrion.Apellido}, ${_anfitrion.Nombre}`;
+                    $("#<%= HFidEvento.ClientID%>").val(_evento.Id);
                     $("#lblEvento").html(_descrip);
                     $("#pnlReserva").show();
                 }

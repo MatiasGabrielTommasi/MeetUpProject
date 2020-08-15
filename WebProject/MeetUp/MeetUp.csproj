@@ -69,8 +69,7 @@
   <ItemGroup>
     <Content Include="assets\css\bootstrap.min.css" />
     <Content Include="assets\css\meetup-fix.css" />
-    <Content Include="assets\css\now-ui-dashboard.css" />
-    <Content Include="assets\css\now-ui-dashboard.min.css" />
+    <Content Include="assets\css\dashboard.min.css" />
     <Content Include="assets\fullcalendar\css\fullcalendar.min.css" />
     <Content Include="assets\fullcalendar\css\styles.css" />
     <Content Include="assets\fullcalendar\js\fullcalendar.min.js" />
@@ -151,8 +150,7 @@
     <Content Include="assets\js\core\bootstrap.min.js" />
     <Content Include="assets\js\core\jquery.min.js" />
     <Content Include="assets\js\core\popper.min.js" />
-    <Content Include="assets\js\now-ui-dashboard.js" />
-    <Content Include="assets\js\now-ui-dashboard.min.js" />
+    <Content Include="assets\js\dashboard.min.js" />
     <Content Include="assets\js\plugins\bootstrap-notify.js" />
     <Content Include="assets\js\plugins\chartjs.min.js" />
     <Content Include="assets\js\plugins\perfect-scrollbar.jquery.min.js" />
@@ -160,6 +158,7 @@
     <Content Include="Default.aspx" />
     <Content Include="Eventos.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="MiUsuario.aspx" />
     <Content Include="Parametricas.aspx" />
     <Content Include="Registrarse.aspx" />
     <Content Include="Reservas.aspx" />
@@ -203,6 +202,13 @@
     </Compile>
     <Compile Include="Main.Master.designer.cs">
       <DependentUpon>Main.Master</DependentUpon>
+    </Compile>
+    <Compile Include="MiUsuario.aspx.cs">
+      <DependentUpon>MiUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MiUsuario.aspx.designer.cs">
+      <DependentUpon>MiUsuario.aspx</DependentUpon>
     </Compile>
     <Compile Include="Parametricas.aspx.cs">
       <DependentUpon>Parametricas.aspx</DependentUpon>
@@ -255,9 +261,7 @@
     <Content Include="assets\fonts\nucleo-outline.ttf" />
     <Content Include="assets\fonts\nucleo-outline.woff" />
     <Content Include="assets\fonts\nucleo-outline.woff2" />
-    <Content Include="assets\js\now-ui-dashboard.js.map" />
     <Content Include="assets\css\bootstrap.min.css.map" />
-    <Content Include="assets\css\now-ui-dashboard.css.map" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

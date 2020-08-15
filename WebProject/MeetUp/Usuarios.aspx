@@ -96,14 +96,14 @@
                               <asp:GridView CssClass="table table-hover" ID="gvUsuario" runat="server" AllowPaging="true" AutoGenerateColumns="false" EmptyDataText="No Profile found." GridLines="None"
                                    OnPageIndexChanging="gvUsuario_PageIndexChanging" OnRowCommand="gvUsuario_RowCommand" PageSize="10" ShowHeader="false">
                                   <Columns>
-                                      <asp:BoundField HeaderText="Usuario" DataField="strUsuario" />
-                                      <asp:BoundField HeaderText="Apellido" DataField="strApellido" />
-                                      <asp:BoundField HeaderText="Nombre" DataField="strNombre" />
-                                      <asp:BoundField HeaderText="Documento" DataField="strNumeroDocumento" />
+                                      <asp:BoundField HeaderText="Usuario" DataField="Username" />
+                                      <asp:BoundField HeaderText="Apellido" DataField="Apellido" />
+                                      <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
+                                      <asp:BoundField HeaderText="Documento" DataField="NumeroDoc" />
                                       <asp:TemplateField ItemStyle-Width="100">
                                           <ItemTemplate>    
-                                              <asp:LinkButton ID="btnEditar" CommandName="editItem" CommandArgument='<%# Eval("intIdUsuario") %>' runat="server" CssClass="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons design-2_ruler-pencil"></i></asp:LinkButton>
-                                              <asp:LinkButton ID="btnReestablecerContrasenia" CommandName="reestablecerContrasenia" CommandArgument='<%# Eval("intIdUsuario") %>' runat="server" CssClass="btn btn-primary btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons objects_key-25"></i></asp:LinkButton>
+                                              <asp:LinkButton ID="btnEditar" CommandName="editItem" CommandArgument='<%# Eval("Id") %>' runat="server" CssClass="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons design-2_ruler-pencil"></i></asp:LinkButton>
+                                              <asp:LinkButton ID="btnReestablecerContrasenia" CommandName="reestablecerContrasenia" CommandArgument='<%# Eval("Id") %>' runat="server" CssClass="btn btn-primary btn-round btn-icon btn-icon-mini btn-neutral"><i class="now-ui-icons objects_key-25"></i></asp:LinkButton>
                                           </ItemTemplate>
                                       </asp:TemplateField>
                                   </Columns>

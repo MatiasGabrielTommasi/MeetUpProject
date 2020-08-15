@@ -15,49 +15,49 @@ namespace MeetUp
     {
 
         /// <summary>
-        /// HFintIdPerfil control.
+        /// HFIdPerfil control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HFintIdPerfil;
+        protected global::System.Web.UI.WebControls.HiddenField HFIdPerfil;
 
         /// <summary>
-        /// HFintIdComponente control.
+        /// HFIdComponente control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HFintIdComponente;
+        protected global::System.Web.UI.WebControls.HiddenField HFIdComponente;
 
         /// <summary>
-        /// HFintIdComponentePadre control.
+        /// HFIdComponentePadre control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HFintIdComponentePadre;
+        protected global::System.Web.UI.WebControls.HiddenField HFIdComponentePadre;
 
         /// <summary>
-        /// HFintIdTipoComponente control.
+        /// HFIdTipoComponente control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HFintIdTipoComponente;
+        protected global::System.Web.UI.WebControls.HiddenField HFIdTipoComponente;
 
         /// <summary>
-        /// HFintIdTipoDocumento control.
+        /// HFIdTipoDocumento control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HFintIdTipoDocumento;
+        protected global::System.Web.UI.WebControls.HiddenField HFIdTipoDocumento;
 
         /// <summary>
         /// pnlPerfiles control.

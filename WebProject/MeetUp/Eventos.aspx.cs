@@ -301,12 +301,33 @@ namespace MeetUp
             }
         }
 
-        protected void gvEvento_DataBinding(object sender, EventArgs e)
+        protected void gvEvento_RowDataBound(object sender, GridViewRowEventArgs e)
         {
-            //string.Format("{0:dd/MM/yyyy} ({1}°)", Eval("DiaSeleccionado.Fecha"), Eval("DiaSeleccionado.Temperatura"))
             try
             {
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+                    GridViewRow row = (GridViewRow)e.Row;
+                    Evento obj = (Evento)row.DataItem;
+                    Label lblFecha = (Label)row.FindControl("lblFecha");
+                    Label lblCervezas = (Label)row.FindControl("lblCervezas");
 
+                    if (obj.DiaSeleccionado.Temperatura > 0)
+                        lblFecha.Text = string.Format("{0:dd/MM/yyyy} ({1}°)", obj.DiaSeleccionado.Fecha, obj.DiaSeleccionado.Temperatura);
+                    else
+                        lblFecha.Text = string.Format("{0:dd/MM/yyyy}", obj.DiaSeleccionado.Fecha);
+
+                    double cervezas = 0;
+                    if (obj.DiaSeleccionado.Temperatura < 20)//toman 0.75
+                        cervezas = obj.TotalReservas * 0.75;
+                    else if(obj.DiaSeleccionado.Temperatura >= 20 && obj.DiaSeleccionado.Temperatura <= 24)//toman 1
+                        cervezas = obj.TotalReservas;
+                    else if(obj.DiaSeleccionado.Temperatura > 24)//toman 3                        
+                        cervezas = obj.TotalReservas * 3;
+
+                    lblCervezas.Text = string.Format("{0} cajas de cerveza", Convert.ToInt32(Math.Ceiling(cervezas/6)));
+
+                }
             }
             catch (Exception ex)
             {

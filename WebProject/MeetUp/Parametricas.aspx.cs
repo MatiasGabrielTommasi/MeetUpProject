@@ -55,7 +55,7 @@ namespace MeetUp
         {
             try
             {
-                List<Control> iControl = new List<Control>() { txtPerfil, HFintIdPerfil };
+                List<Control> iControl = new List<Control>() { txtPerfil, HFIdPerfil };
                 Funciones.LimpiarCampos(iControl);
                 btnGuardarPerfil.Visible = true;
                 tvComponentesPerfil.Nodes.Clear();
@@ -171,9 +171,9 @@ namespace MeetUp
                 if (ValidarCamposPerfil())
                 {
                     int r = 0; 
-                    int intId = Convert.ToInt32(HFintIdPerfil.Value);
+                    int Id = Convert.ToInt32(HFIdPerfil.Value);
                     string strProfile = txtPerfil.Text;
-                    Perfil obj = new Perfil(intId, strProfile);
+                    Perfil obj = new Perfil(Id, strProfile);
 
                     TreeNodeCollection iTreeComponents = tvComponentesPerfil.CheckedNodes;
                     foreach (TreeNode component in iTreeComponents)
@@ -275,14 +275,14 @@ namespace MeetUp
         }
         protected void gvPerfil_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            int intId = Convert.ToInt32(e.CommandArgument);
-            HFintIdPerfil.Value = Convert.ToString(intId);
+            int Id = Convert.ToInt32(e.CommandArgument);
+            HFIdPerfil.Value = Convert.ToString(Id);
             PerfilDA objDA = new PerfilDA();
             switch (e.CommandName)
             {
                 case "editItem":
                     Perfil obj = new Perfil();
-                    obj.Id = intId;
+                    obj.Id = Id;
                     obj = objDA.Cargar(obj).FirstOrDefault();
                     CargarCamposPerfil(obj);
                     pnlPerfil.Visible = true;
@@ -296,7 +296,7 @@ namespace MeetUp
                 LimpiarCamposPerfil();
 
                 txtPerfil.Text = obj.Descrip;
-                HFintIdPerfil.Value = Convert.ToString(obj.Id);
+                HFIdPerfil.Value = Convert.ToString(obj.Id);
                 CargarTreeViewComponentes(obj);
 
                 string _js = "showPanel('pnlProfileFields', true);";
@@ -317,8 +317,8 @@ namespace MeetUp
             {
                 TipoComponenteDA objDA = new TipoComponenteDA();
                 cboTipoComponente.DataSource = objDA.Cargar(new TipoComponente());
-                cboTipoComponente.DataTextField = "strDescrip";
-                cboTipoComponente.DataValueField = "intId";
+                cboTipoComponente.DataTextField = "Descrip";
+                cboTipoComponente.DataValueField = "Id";
                 cboTipoComponente.DataBind();
             }
             catch (Exception ex)
@@ -336,8 +336,8 @@ namespace MeetUp
                 chkHabilitar.Checked = obj.Habilitado;
                 chkMostrar.Checked = obj.Mostrado;
                 cboTipoComponente.SelectedValue = Convert.ToString(obj.Tipo.Id);
-                HFintIdComponente.Value = Convert.ToString(obj.Id);
-                HFintIdComponentePadre.Value = Convert.ToString(obj.IdPadre);
+                HFIdComponente.Value = Convert.ToString(obj.Id);
+                HFIdComponentePadre.Value = Convert.ToString(obj.IdPadre);
                 pnlComponente.Visible = true;
             }
             catch (Exception ex)
@@ -348,7 +348,7 @@ namespace MeetUp
         {
             try
             {
-                List<Control> iControl = new List<Control>() { txtComponente, txtComponenteDetalle, txtComponenteIcono, txtComponenteUrl, cboTipoComponente, HFintIdComponente, HFintIdComponentePadre };
+                List<Control> iControl = new List<Control>() { txtComponente, txtComponenteDetalle, txtComponenteIcono, txtComponenteUrl, cboTipoComponente, HFIdComponente, HFIdComponentePadre };
                 Funciones.LimpiarCampos(iControl);
             }
             catch (Exception ex)
@@ -391,8 +391,8 @@ namespace MeetUp
                 if (ValidarCamposComponente())
                 {
                     Componente obj = new Componente();
-                    obj.Id = Convert.ToInt32(HFintIdComponente.Value);
-                    obj.IdPadre = Convert.ToInt32(HFintIdComponentePadre.Value);
+                    obj.Id = Convert.ToInt32(HFIdComponente.Value);
+                    obj.IdPadre = Convert.ToInt32(HFIdComponentePadre.Value);
                     obj.Tipo = new TipoComponente(Convert.ToInt32(cboTipoComponente.SelectedValue), Convert.ToString(cboTipoComponente.SelectedItem));
                     obj.Nombre = txtComponente.Text;
                     obj.Detalle = txtComponenteDetalle.Text;
@@ -444,7 +444,7 @@ namespace MeetUp
             try
             {
                 List<Componente> iComponentes = (List<Componente>)ViewState["iComponentes"];
-                Componente obj = iComponentes.Where(c => c.Id == Convert.ToInt32(HFintIdComponente.Value)).ToList().First();
+                Componente obj = iComponentes.Where(c => c.Id == Convert.ToInt32(HFIdComponente.Value)).ToList().First();
 
                 CargarCamposComponentes(obj);
             }
@@ -457,9 +457,9 @@ namespace MeetUp
         {
             try
             {
-                string intIdParent = HFintIdComponente.Value;
+                string IdParent = HFIdComponente.Value;
                 LimpiarCamposComponente();
-                HFintIdComponentePadre.Value = intIdParent;
+                HFIdComponentePadre.Value = IdParent;
                 pnlComponente.Visible = true;
             }
             catch (Exception ex)
@@ -472,10 +472,10 @@ namespace MeetUp
             Main oMaster = (Main)this.Master;
             try
             {
-                int intId = Convert.ToInt32(HFintIdComponente.Value);
+                int Id = Convert.ToInt32(HFIdComponente.Value);
                 ComponenteDA objDA = new ComponenteDA();
                 Componente obj = new Componente();
-                obj.Id = intId;
+                obj.Id = Id;
                 int r = objDA.Eliminar(obj);
                 if (r > 0)
                 {
@@ -607,7 +607,7 @@ namespace MeetUp
             try
             {
                 txtTipoDocumento.Text = obj.Descrip;
-                HFintIdTipoDocumento.Value = Convert.ToString(obj.Id);
+                HFIdTipoDocumento.Value = Convert.ToString(obj.Id);
                 pnlTipoDocumento.Visible = true;
             }
             catch (Exception ex)
@@ -618,7 +618,7 @@ namespace MeetUp
         {
             try
             {
-                List<Control> iControl = new List<Control>() { txtTipoDocumento, HFintIdTipoDocumento };
+                List<Control> iControl = new List<Control>() { txtTipoDocumento, HFIdTipoDocumento };
                 Funciones.LimpiarCampos(iControl);
             }
             catch (Exception ex)
@@ -653,17 +653,17 @@ namespace MeetUp
         {
             try
             {
-                int intId = Convert.ToInt32(e.CommandArgument);
-                HFintIdTipoDocumento.Value = Convert.ToString(intId);
+                int Id = Convert.ToInt32(e.CommandArgument);
+                HFIdTipoDocumento.Value = Convert.ToString(Id);
                 TipoDocumentoDA objDA = new TipoDocumentoDA();
                 switch (e.CommandName)
                 {
                     case "editItem":
-                        TipoDocumento obj = objDA.Cargar(new TipoDocumento(intId, string.Empty)).FirstOrDefault();
+                        TipoDocumento obj = objDA.Cargar(new TipoDocumento(Id, string.Empty)).FirstOrDefault();
                         CargarCamposTipoDocumento(obj);
                         break;
                     case "deleteItem":
-                        int r = objDA.Eliminar(new TipoDocumento(intId, string.Empty));
+                        int r = objDA.Eliminar(new TipoDocumento(Id, string.Empty));
                         if (r > 0)
                         {
                             Mensaje("Se eliminí el Tipod e Documento correctamente", "Correcto!", AlertIcon.Icon.Check, CssClasses.CssClass.Success);
@@ -686,7 +686,7 @@ namespace MeetUp
                 if (ValidarCamposTipoDocumento())
                 {
                     TipoDocumento obj = new TipoDocumento();
-                    obj.Id = Convert.ToInt32(HFintIdTipoDocumento.Value);
+                    obj.Id = Convert.ToInt32(HFIdTipoDocumento.Value);
                     obj.Descrip = txtTipoDocumento.Text;
 
                     TipoDocumentoDA objDA = new TipoDocumentoDA();
@@ -744,7 +744,7 @@ namespace MeetUp
             try
             {
                 txtTipoComponente.Text = obj.Descrip;
-                HFintIdTipoComponente.Value = Convert.ToString(obj.Id);
+                HFIdTipoComponente.Value = Convert.ToString(obj.Id);
                 pnlTipoComponente.Visible = true;
             }
             catch (Exception ex)
@@ -755,7 +755,7 @@ namespace MeetUp
         {
             try
             {
-                List<Control> iControl = new List<Control>() { txtTipoComponente, HFintIdTipoComponente };
+                List<Control> iControl = new List<Control>() { txtTipoComponente, HFIdTipoComponente };
                 Funciones.LimpiarCampos(iControl);
             }
             catch (Exception ex)
@@ -790,17 +790,17 @@ namespace MeetUp
         {
             try
             {
-                int intId = Convert.ToInt32(e.CommandArgument);
-                HFintIdTipoComponente.Value = Convert.ToString(intId);
+                int Id = Convert.ToInt32(e.CommandArgument);
+                HFIdTipoComponente.Value = Convert.ToString(Id);
                 TipoComponenteDA objDA = new TipoComponenteDA();
                 switch (e.CommandName)
                 {
                     case "editItem":
-                        TipoComponente obj = objDA.Cargar(new TipoComponente(intId, string.Empty)).FirstOrDefault();
+                        TipoComponente obj = objDA.Cargar(new TipoComponente(Id, string.Empty)).FirstOrDefault();
                         CargarCamposTipoComponente(obj);
                         break;
                     case "deleteItem":
-                        int r = objDA.Eliminar(new TipoComponente(intId, string.Empty));
+                        int r = objDA.Eliminar(new TipoComponente(Id, string.Empty));
                         if (r > 0)
                         {
                             Mensaje("Se eliminí el Tipod e Documento correctamente", "Correcto!", AlertIcon.Icon.Check, CssClasses.CssClass.Success);
@@ -823,7 +823,7 @@ namespace MeetUp
                 if (ValidarCamposTipoComponente())
                 {
                     TipoComponente obj = new TipoComponente();
-                    obj.Id = Convert.ToInt32(HFintIdTipoComponente.Value);
+                    obj.Id = Convert.ToInt32(HFIdTipoComponente.Value);
                     obj.Descrip = txtTipoComponente.Text;
 
                     TipoComponenteDA objDA = new TipoComponenteDA();

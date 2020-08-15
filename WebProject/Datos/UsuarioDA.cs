@@ -264,7 +264,7 @@ namespace Datos
 		/// </summary>
 		/// <param name="obj"></param>
 		/// <returns></returns>
-        public int ReestablecerContrasenia(Usuario obj)
+        public int CambiarContrasenia(Usuario obj)
 		{
 			string strSQL = "UsuarioContrasenia_upt";
 			int r = 0;

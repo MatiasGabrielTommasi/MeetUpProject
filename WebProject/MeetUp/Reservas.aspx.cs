@@ -45,8 +45,19 @@ namespace MeetUp
         {
             try
             {
-                ReservaDA objDA = new ReservaDA();
-                gvReserva.DataSource = objDA.Cargar(new Reserva());
+                ReservaDA objDA = new ReservaDA(); 
+                List<Reserva> obj = objDA.Cargar(new Reserva());
+                List<ApiTemperature> iTemp = Funciones.ObtenerListadoTemperaturas();
+                foreach (Reserva reserva in obj)
+                {
+                    List<ApiTemperature> ExisteFecha = iTemp.Where(t => t.Fecha.Date == reserva.EventoSeleccionado.DiaSeleccionado.Fecha.Date).ToList();
+                    if (ExisteFecha.Count > 0)
+                    {
+                        reserva.EventoSeleccionado.DiaSeleccionado.Fecha = ExisteFecha.First().Fecha;
+                        reserva.EventoSeleccionado.DiaSeleccionado.Temperatura = ExisteFecha.First().Temperatura;
+                    }
+                }
+                gvReserva.DataSource = obj;
                 gvReserva.DataBind();
                 upGridReserva.Update();
             }
@@ -73,7 +84,7 @@ namespace MeetUp
 
                 EventoDA objEventoDA = new EventoDA();
                 Evento objEvento = new Evento();
-                objEvento.Id = Convert.ToInt32(HFintIdEvento.Value);
+                objEvento.Id = Convert.ToInt32(HFidEvento.Value);
                 objEvento = objEventoDA.Cargar(objEvento).First();
 
                 Reserva obj = new Reserva();
@@ -189,6 +200,27 @@ namespace MeetUp
         {
             Main main = (Main)this.Master;
             main.MostrarMensaje(Icon, Class, strTitle, strMessage);
+        }
+
+        protected void gvReserva_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            try
+            {
+                if (e.Row.RowType == DataControlRowType.DataRow)
+                {
+                    GridViewRow row = (GridViewRow)e.Row;
+                    Reserva obj = (Reserva)row.DataItem;
+                    Label lblFecha = (Label)row.FindControl("lblFecha");
+
+                    if (obj.EventoSeleccionado.DiaSeleccionado.Temperatura > 0)
+                        lblFecha.Text = string.Format("{0:dd/MM/yyyy} ({1}°)", obj.EventoSeleccionado.DiaSeleccionado.Fecha, obj.EventoSeleccionado.DiaSeleccionado.Temperatura);
+                    else
+                        lblFecha.Text = string.Format("{0:dd/MM/yyyy}", obj.EventoSeleccionado.DiaSeleccionado.Fecha);
+                }
+            }
+            catch (Exception ex)
+            {
+            }
         }
     }
 }
