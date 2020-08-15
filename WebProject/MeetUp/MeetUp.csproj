@@ -147,13 +147,7 @@
     <Content Include="assets\fullcalendar\js\locale\zh-tw.js" />
     <Content Include="assets\fullcalendar\js\moment.min.js" />
     <Content Include="assets\img\apple-icon.png" />
-    <Content Include="assets\img\bg5.jpg" />
-    <Content Include="assets\img\default-avatar.png" />
     <Content Include="assets\img\favicon.png" />
-    <Content Include="assets\img\header.jpg" />
-    <Content Include="assets\img\mike.jpg" />
-    <Content Include="assets\img\now-logo.png" />
-    <Content Include="assets\img\now-ui-dashboard.gif" />
     <Content Include="assets\js\core\bootstrap.min.js" />
     <Content Include="assets\js\core\jquery.min.js" />
     <Content Include="assets\js\core\popper.min.js" />
