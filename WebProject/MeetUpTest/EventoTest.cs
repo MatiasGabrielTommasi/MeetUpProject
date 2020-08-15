@@ -21,7 +21,7 @@ namespace MeetUpTest
         public void Guardar()
         {
             Evento obj = new Evento();
-            obj.datFechaEvento = DateTime.Now.AddDays(15);
+            obj.DiaSeleccionado.Fecha = DateTime.Now.AddDays(15);
             obj.TotalAsistentes = 15;
             obj.Salon.Id = 2;
             obj.UsuarioAnfitrion.Id = 2;
@@ -35,7 +35,7 @@ namespace MeetUpTest
         {
             Evento obj = new Evento();
             obj.Id = 1;
-            obj.datFechaEvento = DateTime.Now.AddDays(30);
+            obj.DiaSeleccionado.Fecha = DateTime.Now.AddDays(30);
             obj.TotalAsistentes = 15;
             obj.Salon.Id = 2;
             obj.UsuarioAnfitrion.Id = 2;
